@@ -73,25 +73,4 @@ export type GradientColors = {
 };
 
 /* ---------- Auth Form Types ---------- */
-export type SignUpFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-};
-
-export type SignInFormData = {
-  email: string;
-  password: string;
-};
-
-export type ResetPasswordFormData = {
-  password: string;
-  confirmPassword: string;
-};
-
-export type OTPFormData = {
-  otp: string[];
-};
+// Form types are now defined in validation/schemas.ts

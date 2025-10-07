@@ -1,6 +1,6 @@
 import { Onboarding } from "@/types";
 
-/* ---------- Service Data ---------- */
+/* ---------- Onboarding Data ---------- */
 export const defaultOnboarding: Onboarding[] = [
   {
     id: 1,
@@ -69,15 +69,15 @@ export const defaultOnboarding: Onboarding[] = [
 
 /* ---------- Gradient Colors ---------- */
 export const gradientColors = {
-  primary: ["#FFD700", "#FFA500", "#FFE4B5"] as const,
+  primary: ["#FF4500", "#FF6347", "#FF7F50"] as const,
   secondary: [
-    "rgba(144, 238, 144, 0.2)",
-    "rgba(255, 255, 255, 0.1)",
-    "rgba(255, 215, 0, 0.15)",
+    "rgba(255, 69, 0, 0.2)", // soft orangered
+    "rgba(255, 99, 71, 0.15)", // tomato tint
+    "rgba(255, 127, 80, 0.1)", // coral tint
   ] as const,
   cardOverlay: [
     "transparent",
-    "rgba(0,0,0,0.6)",
+    "rgba(0, 0, 0, 0.6)",
     "rgba(0, 0, 0, 0.55)",
   ] as const,
 };

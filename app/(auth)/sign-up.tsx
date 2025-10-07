@@ -1,9 +1,9 @@
-import { SignUpFormData } from "@/types";
+import { gradientColors } from "@/constants/data";
+import { SignUpFormData, signUpSchema } from "@/validation/schemas";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,11 +22,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function SignUpScreen() {
   const [formData, setFormData] = useState<SignUpFormData>({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     phone: "",
     password: "",
@@ -43,45 +43,52 @@ export default function SignUpScreen() {
   };
 
   const handleSignUp = async () => {
-    const { firstName, lastName, email, phone, password, confirmPassword } =
-      formData;
+    try {
+      // Validate form data using Zod
+      const validatedData = signUpSchema.parse(formData);
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone ||
-      !password ||
-      !confirmPassword
-    ) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
+      setIsLoading(true);
 
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
+      // Animate button press
+      buttonScale.value = withSpring(0.95);
+      buttonOpacity.value = withTiming(0.7);
 
-    if (password.length < 6) {
-      Alert.alert("Error", "Password must be at least 6 characters");
-      return;
-    }
+      // Simulate API call
+      setTimeout(() => {
+        buttonScale.value = withSpring(1);
+        buttonOpacity.value = withTiming(1);
+        setIsLoading(false);
 
-    setIsLoading(true);
+        // Show success toast
+        Toast.show({
+          type: "success",
+          text1: "Account created successfully!",
+          text2: "Please verify your email to continue",
+        });
 
-    // Animate button press
-    buttonScale.value = withSpring(0.95);
-    buttonOpacity.value = withTiming(0.7);
-
-    setTimeout(() => {
-      buttonScale.value = withSpring(1);
-      buttonOpacity.value = withTiming(1);
+        // Navigate to OTP verification
+        router.push("/(auth)/verify-otp");
+      }, 2000);
+    } catch (error: any) {
       setIsLoading(false);
 
-      // Navigate to OTP verification
-      router.push("/(auth)/verify-otp");
-    }, 2000);
+      if (error.errors && error.errors.length > 0) {
+        // Show validation errors
+        const firstError = error.errors[0];
+        Toast.show({
+          type: "error",
+          text1: "Validation Error",
+          text2: firstError.message,
+        });
+      } else {
+        // Show generic error
+        Toast.show({
+          type: "error",
+          text1: "Sign Up Failed",
+          text2: "Please try again later",
+        });
+      }
+    }
   };
 
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
@@ -99,7 +106,7 @@ export default function SignUpScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -107,11 +114,7 @@ export default function SignUpScreen() {
 
       {/* Secondary gradient overlay */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.2)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.15)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -133,7 +136,7 @@ export default function SignUpScreen() {
               className="items-center pt-6 pb-4"
             >
               <View className="w-16 h-16 rounded-2xl bg-white/20 items-center justify-center mb-3">
-                <Text className="text-2xl font-bold text-white">H</Text>
+                <Text className="text-2xl font-bold text-white">HV</Text>
               </View>
               <Text className="text-2xl font-bold text-white mb-1">
                 Create Account
@@ -150,41 +153,21 @@ export default function SignUpScreen() {
             >
               <View className="space-y-3">
                 {/* Name Row */}
-                <Animated.View
-                  entering={FadeInDown.delay(600)}
-                  className="flex-row space-x-3"
-                >
-                  <View className="flex-1">
-                    <Text className="text-white/90 text-sm font-medium mb-2">
-                      First Name
-                    </Text>
-                    <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                      <TextInput
-                        value={formData.firstName}
-                        onChangeText={(value) =>
-                          handleInputChange("firstName", value)
-                        }
-                        placeholder="First name"
-                        placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                        className="text-white text-sm"
-                      />
-                    </View>
-                  </View>
-                  <View className="flex-1">
-                    <Text className="text-white/90 text-sm font-medium mb-2">
-                      Last Name
-                    </Text>
-                    <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                      <TextInput
-                        value={formData.lastName}
-                        onChangeText={(value) =>
-                          handleInputChange("lastName", value)
-                        }
-                        placeholder="Last name"
-                        placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                        className="text-white text-sm"
-                      />
-                    </View>
+                {/* Full Name Input */}
+                <Animated.View entering={FadeInDown.delay(600)}>
+                  <Text className="text-white/90 text-sm font-medium mb-2">
+                    Full Name
+                  </Text>
+                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
+                    <TextInput
+                      value={formData.fullName}
+                      onChangeText={(value) =>
+                        handleInputChange("fullName", value)
+                      }
+                      placeholder="Enter your full name"
+                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                      className="text-white text-sm"
+                    />
                   </View>
                 </Animated.View>
 
@@ -285,20 +268,19 @@ export default function SignUpScreen() {
                 </Animated.View>
 
                 {/* Sign Up Button */}
-                <Animated.View
-                  entering={FadeInUp.delay(1800)}
-                  style={buttonAnimatedStyle}
-                >
-                  <TouchableOpacity
-                    onPress={handleSignUp}
-                    disabled={isLoading}
-                    className="bg-white rounded-xl py-3 items-center shadow-lg mt-4"
-                    activeOpacity={0.8}
-                  >
-                    <Text className="text-gray-800 text-base font-semibold">
-                      {isLoading ? "Creating Account..." : "Create Account"}
-                    </Text>
-                  </TouchableOpacity>
+                <Animated.View entering={FadeInUp.delay(1800)}>
+                  <Animated.View style={buttonAnimatedStyle}>
+                    <TouchableOpacity
+                      onPress={handleSignUp}
+                      disabled={isLoading}
+                      className="bg-white rounded-xl py-3 items-center shadow-lg mt-4"
+                      activeOpacity={0.8}
+                    >
+                      <Text className="text-gray-800 text-base font-semibold">
+                        {isLoading ? "Creating Account..." : "Create Account"}
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
                 </Animated.View>
               </View>
             </Animated.View>

@@ -1,3 +1,4 @@
+import { gradientColors } from "@/constants/data";
 import { OTPFormData } from "@/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
@@ -106,7 +107,7 @@ export default function VerifyOTPScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -114,11 +115,7 @@ export default function VerifyOTPScreen() {
 
       {/* Secondary gradient overlay */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.2)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.15)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

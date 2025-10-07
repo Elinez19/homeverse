@@ -1,8 +1,12 @@
+import { gradientColors } from "@/constants/data";
+import {
+  ForgotPasswordFormData,
+  forgotPasswordSchema,
+} from "@/validation/schemas";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,43 +26,72 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function ForgotPasswordScreen() {
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState<ForgotPasswordFormData>({
+    email: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   // Animation values
   const buttonScale = useSharedValue(1);
   const buttonOpacity = useSharedValue(1);
 
+  const handleInputChange = (
+    field: keyof ForgotPasswordFormData,
+    value: string
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleResetPassword = async () => {
-    if (!email) {
-      Alert.alert("Error", "Please enter your email address");
-      return;
-    }
+    try {
+      // Validate form data using Zod
+      const validatedData = forgotPasswordSchema.parse(formData);
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    // Animate button press
-    buttonScale.value = withSpring(0.95);
-    buttonOpacity.value = withTiming(0.7);
+      // Animate button press
+      buttonScale.value = withSpring(0.95);
+      buttonOpacity.value = withTiming(0.7);
 
-    setTimeout(() => {
-      buttonScale.value = withSpring(1);
-      buttonOpacity.value = withTiming(1);
+      // Simulate API call
+      setTimeout(() => {
+        buttonScale.value = withSpring(1);
+        buttonOpacity.value = withTiming(1);
+        setIsLoading(false);
+
+        // Show success toast
+        Toast.show({
+          type: "success",
+          text1: "Reset Link Sent!",
+          text2: "Please check your email for password reset instructions",
+        });
+
+        // Navigate to sign in
+        router.push("/(auth)/sign-in");
+      }, 2000);
+    } catch (error: any) {
       setIsLoading(false);
 
-      Alert.alert(
-        "Reset Link Sent",
-        "We've sent a password reset link to your email address.",
-        [
-          {
-            text: "OK",
-            onPress: () => router.push("/(auth)/sign-in"),
-          },
-        ]
-      );
-    }, 2000);
+      if (error.errors && error.errors.length > 0) {
+        // Show validation errors
+        const firstError = error.errors[0];
+        Toast.show({
+          type: "error",
+          text1: "Validation Error",
+          text2: firstError.message,
+        });
+      } else {
+        // Show generic error
+        Toast.show({
+          type: "error",
+          text1: "Request Failed",
+          text2: "Please try again later",
+        });
+      }
+    }
   };
 
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
@@ -76,7 +109,7 @@ export default function ForgotPasswordScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -84,11 +117,7 @@ export default function ForgotPasswordScreen() {
 
       {/* Secondary gradient overlay */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.2)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.15)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -134,8 +163,10 @@ export default function ForgotPasswordScreen() {
                   </Text>
                   <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
                     <TextInput
-                      value={email}
-                      onChangeText={setEmail}
+                      value={formData.email}
+                      onChangeText={(value) =>
+                        handleInputChange("email", value)
+                      }
                       placeholder="Enter your email address"
                       placeholderTextColor="rgba(255, 255, 255, 0.6)"
                       keyboardType="email-address"
@@ -147,20 +178,19 @@ export default function ForgotPasswordScreen() {
                 </Animated.View>
 
                 {/* Reset Button */}
-                <Animated.View
-                  entering={FadeInUp.delay(800)}
-                  style={buttonAnimatedStyle}
-                >
-                  <TouchableOpacity
-                    onPress={handleResetPassword}
-                    disabled={isLoading}
-                    className="bg-white rounded-2xl py-4 items-center shadow-lg"
-                    activeOpacity={0.8}
-                  >
-                    <Text className="text-gray-800 text-lg font-semibold">
-                      {isLoading ? "Sending..." : "Send Reset Link"}
-                    </Text>
-                  </TouchableOpacity>
+                <Animated.View entering={FadeInUp.delay(800)}>
+                  <Animated.View style={buttonAnimatedStyle}>
+                    <TouchableOpacity
+                      onPress={handleResetPassword}
+                      disabled={isLoading}
+                      className="bg-white rounded-2xl py-4 items-center shadow-lg"
+                      activeOpacity={0.8}
+                    >
+                      <Text className="text-gray-800 text-lg font-semibold">
+                        {isLoading ? "Sending..." : "Send Reset Link"}
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
                 </Animated.View>
 
                 {/* Help Text */}

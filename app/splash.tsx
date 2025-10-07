@@ -2,7 +2,7 @@ import { animationConfig, appConfig, gradientColors } from "@/constants/data";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
-import { StatusBar, Text, View, useWindowDimensions } from "react-native";
+import { StatusBar, Text, View } from "react-native";
 import Animated, {
   FadeIn,
   useAnimatedStyle,
@@ -14,8 +14,6 @@ import Animated, {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SplashScreen() {
-  const { width, height } = useWindowDimensions();
-
   // Animation values
   const logoScale = useSharedValue(0);
   const logoOpacity = useSharedValue(0);

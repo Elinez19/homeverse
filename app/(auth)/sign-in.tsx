@@ -1,8 +1,10 @@
+import { gradientColors } from "@/constants/data";
+import { SignInFormData, signInSchema } from "@/validation/schemas";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,36 +24,70 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function SignInScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<SignInFormData>({
+    email: "",
+    password: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   // Animation values
   const buttonScale = useSharedValue(1);
   const buttonOpacity = useSharedValue(1);
 
+  const handleInputChange = (field: keyof SignInFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleSignIn = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
+    try {
+      // Validate form data using Zod
+      const validatedData = signInSchema.parse(formData);
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    // Animate button press
-    buttonScale.value = withSpring(0.95);
-    buttonOpacity.value = withTiming(0.7);
+      // Animate button press
+      buttonScale.value = withSpring(0.95);
+      buttonOpacity.value = withTiming(0.7);
 
-    setTimeout(() => {
-      buttonScale.value = withSpring(1);
-      buttonOpacity.value = withTiming(1);
+      // Simulate API call
+      setTimeout(() => {
+        buttonScale.value = withSpring(1);
+        buttonOpacity.value = withTiming(1);
+        setIsLoading(false);
+
+        // Show success toast
+        Toast.show({
+          type: "success",
+          text1: "Welcome back!",
+          text2: "You have successfully signed in",
+        });
+
+        // Navigate to main app
+        router.replace("/(root)/(tabs)/Home");
+      }, 2000);
+    } catch (error: any) {
       setIsLoading(false);
 
-      // Navigate to main app
-      router.replace("/(root)/(tabs)/Home");
-    }, 2000);
+      if (error.errors && error.errors.length > 0) {
+        // Show validation errors
+        const firstError = error.errors[0];
+        Toast.show({
+          type: "error",
+          text1: "Validation Error",
+          text2: firstError.message,
+        });
+      } else {
+        // Show generic error
+        Toast.show({
+          type: "error",
+          text1: "Sign In Failed",
+          text2: "Please check your credentials and try again",
+        });
+      }
+    }
   };
 
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
@@ -69,7 +105,7 @@ export default function SignInScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -77,11 +113,7 @@ export default function SignInScreen() {
 
       {/* Secondary gradient overlay */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.2)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.15)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -126,8 +158,10 @@ export default function SignInScreen() {
                   </Text>
                   <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
                     <TextInput
-                      value={email}
-                      onChangeText={setEmail}
+                      value={formData.email}
+                      onChangeText={(value) =>
+                        handleInputChange("email", value)
+                      }
                       placeholder="Enter your email"
                       placeholderTextColor="rgba(255, 255, 255, 0.6)"
                       keyboardType="email-address"
@@ -145,8 +179,10 @@ export default function SignInScreen() {
                   </Text>
                   <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
                     <TextInput
-                      value={password}
-                      onChangeText={setPassword}
+                      value={formData.password}
+                      onChangeText={(value) =>
+                        handleInputChange("password", value)
+                      }
                       placeholder="Enter your password"
                       placeholderTextColor="rgba(255, 255, 255, 0.6)"
                       secureTextEntry
@@ -158,7 +194,7 @@ export default function SignInScreen() {
                 {/* Forgot Password */}
                 <Animated.View
                   entering={FadeInDown.delay(1000)}
-                  className="items-end"
+                  className="items-end mt-4 mb-4"
                 >
                   <TouchableOpacity
                     onPress={() => router.push("/(auth)/forgot-password")}
@@ -170,20 +206,19 @@ export default function SignInScreen() {
                 </Animated.View>
 
                 {/* Sign In Button */}
-                <Animated.View
-                  entering={FadeInUp.delay(1200)}
-                  style={buttonAnimatedStyle}
-                >
-                  <TouchableOpacity
-                    onPress={handleSignIn}
-                    disabled={isLoading}
-                    className="bg-white rounded-2xl py-4 items-center shadow-lg"
-                    activeOpacity={0.8}
-                  >
-                    <Text className="text-gray-800 text-lg font-semibold">
-                      {isLoading ? "Signing In..." : "Sign In"}
-                    </Text>
-                  </TouchableOpacity>
+                <Animated.View entering={FadeInUp.delay(1200)}>
+                  <Animated.View style={buttonAnimatedStyle}>
+                    <TouchableOpacity
+                      onPress={handleSignIn}
+                      disabled={isLoading}
+                      className="bg-white rounded-2xl py-4 items-center shadow-lg"
+                      activeOpacity={0.8}
+                    >
+                      <Text className="text-gray-800 text-lg font-semibold">
+                        {isLoading ? "Signing In..." : "Sign In"}
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
                 </Animated.View>
 
                 {/* Divider */}
@@ -199,17 +234,12 @@ export default function SignInScreen() {
                 {/* Social Sign In */}
                 <Animated.View
                   entering={FadeInUp.delay(1600)}
-                  className="space-y-3"
+                  className="space-y-6"
                 >
-                  <TouchableOpacity className="bg-white/20 rounded-2xl py-4 items-center border border-white/30">
-                    <Text className="text-white text-lg font-medium">
+                  <TouchableOpacity className="bg-white/20 rounded-2xl py-4 flex-row items-center justify-center border border-white/30">
+                    <Ionicons name="logo-google" size={24} color="#fff" />
+                    <Text className="text-white text-lg font-medium ml-3">
                       Continue with Google
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity className="bg-white/20 rounded-2xl py-4 items-center border border-white/30">
-                    <Text className="text-white text-lg font-medium">
-                      Continue with Apple
                     </Text>
                   </TouchableOpacity>
                 </Animated.View>
@@ -223,7 +253,7 @@ export default function SignInScreen() {
             >
               <View className="flex-row justify-center items-center">
                 <Text className="text-white/60 text-sm">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() => router.push("/(auth)/sign-up")}

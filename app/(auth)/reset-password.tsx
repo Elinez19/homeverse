@@ -1,9 +1,12 @@
-import { ResetPasswordFormData } from "@/types";
+import { gradientColors } from "@/constants/data";
+import {
+  ResetPasswordFormData,
+  resetPasswordSchema,
+} from "@/validation/schemas";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -22,6 +25,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function ResetPasswordScreen() {
   const [formData, setFormData] = useState<ResetPasswordFormData>({
@@ -34,50 +38,60 @@ export default function ResetPasswordScreen() {
   const buttonScale = useSharedValue(1);
   const buttonOpacity = useSharedValue(1);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (
+    field: keyof ResetPasswordFormData,
+    value: string
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleResetPassword = async () => {
-    const { password, confirmPassword } = formData;
+    try {
+      // Validate form data using Zod
+      const validatedData = resetPasswordSchema.parse(formData);
 
-    if (!password || !confirmPassword) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
+      setIsLoading(true);
 
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
+      // Animate button press
+      buttonScale.value = withSpring(0.95);
+      buttonOpacity.value = withTiming(0.7);
 
-    if (password.length < 6) {
-      Alert.alert("Error", "Password must be at least 6 characters");
-      return;
-    }
+      // Simulate API call
+      setTimeout(() => {
+        buttonScale.value = withSpring(1);
+        buttonOpacity.value = withTiming(1);
+        setIsLoading(false);
 
-    setIsLoading(true);
+        // Show success toast
+        Toast.show({
+          type: "success",
+          text1: "Password Reset Successfully!",
+          text2: "You can now sign in with your new password",
+        });
 
-    // Animate button press
-    buttonScale.value = withSpring(0.95);
-    buttonOpacity.value = withTiming(0.7);
-
-    setTimeout(() => {
-      buttonScale.value = withSpring(1);
-      buttonOpacity.value = withTiming(1);
+        // Navigate to sign in
+        router.push("/(auth)/sign-in");
+      }, 2000);
+    } catch (error: any) {
       setIsLoading(false);
 
-      Alert.alert(
-        "Password Reset",
-        "Your password has been successfully reset!",
-        [
-          {
-            text: "OK",
-            onPress: () => router.push("/(auth)/sign-in"),
-          },
-        ]
-      );
-    }, 2000);
+      if (error.errors && error.errors.length > 0) {
+        // Show validation errors
+        const firstError = error.errors[0];
+        Toast.show({
+          type: "error",
+          text1: "Validation Error",
+          text2: firstError.message,
+        });
+      } else {
+        // Show generic error
+        Toast.show({
+          type: "error",
+          text1: "Password Reset Failed",
+          text2: "Please try again later",
+        });
+      }
+    }
   };
 
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
@@ -95,7 +109,7 @@ export default function ResetPasswordScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -103,11 +117,7 @@ export default function ResetPasswordScreen() {
 
       {/* Secondary gradient overlay */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.2)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.15)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -198,20 +208,19 @@ export default function ResetPasswordScreen() {
                 </Animated.View>
 
                 {/* Reset Button */}
-                <Animated.View
-                  entering={FadeInUp.delay(1200)}
-                  style={buttonAnimatedStyle}
-                >
-                  <TouchableOpacity
-                    onPress={handleResetPassword}
-                    disabled={isLoading}
-                    className="bg-white rounded-2xl py-4 items-center shadow-lg"
-                    activeOpacity={0.8}
-                  >
-                    <Text className="text-gray-800 text-lg font-semibold">
-                      {isLoading ? "Resetting..." : "Reset Password"}
-                    </Text>
-                  </TouchableOpacity>
+                <Animated.View entering={FadeInUp.delay(1200)}>
+                  <Animated.View style={buttonAnimatedStyle}>
+                    <TouchableOpacity
+                      onPress={handleResetPassword}
+                      disabled={isLoading}
+                      className="bg-white rounded-2xl py-4 items-center shadow-lg"
+                      activeOpacity={0.8}
+                    >
+                      <Text className="text-gray-800 text-lg font-semibold">
+                        {isLoading ? "Resetting..." : "Reset Password"}
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
                 </Animated.View>
               </View>
             </Animated.View>
