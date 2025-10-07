@@ -1,3 +1,4 @@
+import { ResetPasswordFormData } from "@/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -23,7 +24,7 @@ import Animated, {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ResetPasswordScreen() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ResetPasswordFormData>({
     password: "",
     confirmPassword: "",
   });

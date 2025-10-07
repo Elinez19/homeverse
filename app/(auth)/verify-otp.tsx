@@ -1,3 +1,4 @@
+import { OTPFormData } from "@/types";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
@@ -24,7 +25,7 @@ import Animated, {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function VerifyOTPScreen() {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState<OTPFormData["otp"]>(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const inputRefs = useRef<TextInput[]>([]);

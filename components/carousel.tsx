@@ -1,8 +1,12 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import {
+  CarouselItemProps,
+  CarouselItemRenderer,
+  InfiniteCarouselProps,
+} from "@/types";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
-  SharedValue,
   interpolate,
   runOnJS,
   useAnimatedReaction,
@@ -12,27 +16,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-export type CarouselItemRenderer<T> = (params: {
-  item: T;
-  index: number;
-}) => React.ReactNode;
-
-export type InfiniteCarouselProps<T> = {
-  carouselItems: T[];
-  renderItem: CarouselItemRenderer<T>;
-  onIndexChange?: (index: number) => void;
-  autoPlaySpeed?: number;
-  itemWidthRatio?: number;
-  rotateDeg?: number; // maximum rotation
-};
-
-type ItemProps = PropsWithChildren<{
-  index: number;
-  scroll: SharedValue<number>;
-  containerW: number;
-  itemW: number;
-  rotateDeg: number;
-}>;
+export { CarouselItemRenderer };
 
 function CarouselItem({
   index,
@@ -41,7 +25,7 @@ function CarouselItem({
   itemW,
   rotateDeg,
   children,
-}: ItemProps) {
+}: CarouselItemProps) {
   const { width: screenW } = useWindowDimensions();
   const halfShift = (containerW - screenW) / 2;
   const basePos = itemW * index - halfShift;

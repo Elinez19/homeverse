@@ -1,3 +1,4 @@
+import { animationConfig, appConfig, gradientColors } from "@/constants/data";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
@@ -33,10 +34,10 @@ export default function SplashScreen() {
     textOpacity.value = withDelay(600, withTiming(1, { duration: 800 }));
     textTranslateY.value = withDelay(600, withTiming(0, { duration: 800 }));
 
-    // Navigate to onboarding after 3 seconds
+    // Navigate to onboarding after configured delay
     const timer = setTimeout(() => {
       router.replace("/(auth)/onboarding");
-    }, 3000);
+    }, animationConfig.splashDelay);
 
     return () => clearTimeout(timer);
   }, []);
@@ -61,7 +62,7 @@ export default function SplashScreen() {
 
       {/* Main gradient background */}
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -69,11 +70,7 @@ export default function SplashScreen() {
 
       {/* Secondary gradient overlay for depth */}
       <LinearGradient
-        colors={[
-          "rgba(144, 238, 144, 0.3)",
-          "rgba(255, 255, 255, 0.1)",
-          "rgba(255, 215, 0, 0.2)",
-        ]}
+        colors={gradientColors.secondary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -93,16 +90,18 @@ export default function SplashScreen() {
           </View>
 
           {/* App Name */}
-          <Text className="text-4xl font-bold text-white mb-2">HomeVerse</Text>
+          <Text className="text-4xl font-bold text-white mb-2">
+            {appConfig.name}
+          </Text>
           <Text className="text-lg text-white/80 font-medium">
-            Professional Home Services
+            {appConfig.tagline}
           </Text>
         </Animated.View>
 
         {/* Animated tagline */}
         <Animated.View style={textAnimatedStyle} className="items-center px-8">
           <Text className="text-center text-white/90 text-lg font-medium leading-6">
-            Your trusted partner for all home service needs
+            {appConfig.description}
           </Text>
         </Animated.View>
 
