@@ -30,10 +30,7 @@ export function HeroCarousel({
 }: HeroCarouselProps) {
   return (
     <View
-      style={[
-        { height: 220, marginTop: 28, marginBottom: 16 },
-        containerStyle,
-      ]}
+      style={[{ height: 220, marginTop: 28, marginBottom: 16 }, containerStyle]}
     >
       <Swiper
         autoplay
@@ -50,8 +47,8 @@ export function HeroCarousel({
           overflow: "visible",
           backgroundColor: "transparent",
         }}
-        dot={<View className="w-2 h-2 rounded-full bg-white/40 mx-1" />}
-        activeDot={<View className="w-3 h-3 rounded-full bg-white mx-1" />}
+        dot={<View className="w-5 h-2 rounded-md bg-white/40 mx-1" />}
+        activeDot={<View className="w-5 h-2 rounded-md bg-white mx-1" />}
         paginationStyle={{ bottom: 12 }}
       >
         {banners.map((banner) => (
@@ -97,4 +94,3 @@ export function HeroCarousel({
     </View>
   );
 }
-
