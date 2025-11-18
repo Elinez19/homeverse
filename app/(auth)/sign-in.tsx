@@ -1,9 +1,10 @@
 import { gradientColors } from "@/constants/data";
 import { SignInFormData, signInSchema } from "@/validation/schemas";
 import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -125,22 +126,31 @@ export default function SignInScreen() {
           className="flex-1"
         >
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
             {/* Header */}
             <Animated.View
               entering={FadeInUp.delay(200).springify()}
-              className="items-center pt-8 pb-6"
+              className="items-center pt-12 pb-8 px-6"
             >
-              <View className="w-20 h-20 rounded-2xl bg-white/20 items-center justify-center mb-4">
-                <Text className="text-3xl font-bold text-white">H</Text>
+              <View
+                className="w-24 h-24 rounded-3xl bg-white/25 items-center justify-center mb-5"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 8 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 12,
+                  elevation: 10,
+                }}
+              >
+                <Text className="text-4xl font-bold text-slate-800">H</Text>
               </View>
-              <Text className="text-3xl font-bold text-white mb-2">
+              <Text className="text-3xl font-bold text-slate-800 mb-2">
                 Welcome Back
               </Text>
-              <Text className="text-white/80 text-center px-8">
+              <Text className="text-slate-700 text-center text-base px-4">
                 Sign in to continue with HomeVerse
               </Text>
             </Animated.View>
@@ -148,73 +158,94 @@ export default function SignInScreen() {
             {/* Form */}
             <Animated.View
               entering={FadeInUp.delay(400).springify()}
-              className="flex-1 px-6"
+              className="flex-1 px-6 mt-4"
             >
-              <View className="space-y-4">
+              <View className="space-y-5">
                 {/* Email Input */}
                 <Animated.View entering={FadeInDown.delay(600)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Email
                   </Text>
-                  <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
-                    <TextInput
-                      value={formData.email}
-                      onChangeText={(value) =>
-                        handleInputChange("email", value)
-                      }
-                      placeholder="Enter your email"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      className="text-white text-base"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="mail-outline"
+                        size={22}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.email}
+                        onChangeText={(value) =>
+                          handleInputChange("email", value)
+                        }
+                        placeholder="Enter your email"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Password Input */}
                 <Animated.View entering={FadeInDown.delay(800)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Password
                   </Text>
-                  <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
-                    <TextInput
-                      value={formData.password}
-                      onChangeText={(value) =>
-                        handleInputChange("password", value)
-                      }
-                      placeholder="Enter your password"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      secureTextEntry
-                      className="text-white text-base"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="lock-closed-outline"
+                        size={22}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.password}
+                        onChangeText={(value) =>
+                          handleInputChange("password", value)
+                        }
+                        placeholder="Enter your password"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        secureTextEntry
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Forgot Password */}
                 <Animated.View
                   entering={FadeInDown.delay(1000)}
-                  className="items-end mt-4 mb-4"
+                  className="items-end mt-2"
                 >
                   <TouchableOpacity
                     onPress={() => router.push("/(auth)/forgot-password")}
                   >
-                    <Text className="text-white/80 text-sm font-medium">
+                    <Text className="text-slate-800 text-sm font-semibold">
                       Forgot Password?
                     </Text>
                   </TouchableOpacity>
                 </Animated.View>
 
                 {/* Sign In Button */}
-                <Animated.View entering={FadeInUp.delay(1200)}>
+                <Animated.View entering={FadeInUp.delay(1200)} className="mt-6">
                   <Animated.View style={buttonAnimatedStyle}>
                     <TouchableOpacity
                       onPress={handleSignIn}
                       disabled={isLoading}
-                      className="bg-white rounded-2xl py-4 items-center shadow-lg"
+                      className="bg-slate-800 rounded-2xl py-4 items-center"
                       activeOpacity={0.8}
+                      style={{
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 6 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 10,
+                        elevation: 8,
+                      }}
                     >
-                      <Text className="text-gray-800 text-lg font-semibold">
+                      <Text className="text-white text-lg font-bold">
                         {isLoading ? "Signing In..." : "Sign In"}
                       </Text>
                     </TouchableOpacity>
@@ -224,21 +255,20 @@ export default function SignInScreen() {
                 {/* Divider */}
                 <Animated.View
                   entering={FadeIn.delay(1400)}
-                  className="flex-row items-center my-6"
+                  className="flex-row items-center my-8"
                 >
-                  <View className="flex-1 h-px bg-white/30" />
-                  <Text className="text-white/60 text-sm mx-4">or</Text>
-                  <View className="flex-1 h-px bg-white/30" />
+                  <View className="flex-1 h-px bg-slate-700/30" />
+                  <Text className="text-slate-700 text-sm mx-4 font-medium">
+                    or
+                  </Text>
+                  <View className="flex-1 h-px bg-slate-700/30" />
                 </Animated.View>
 
                 {/* Social Sign In */}
-                <Animated.View
-                  entering={FadeInUp.delay(1600)}
-                  className="space-y-6"
-                >
-                  <TouchableOpacity className="bg-white/20 rounded-2xl py-4 flex-row items-center justify-center border border-white/30">
-                    <Ionicons name="logo-google" size={24} color="#fff" />
-                    <Text className="text-white text-lg font-medium ml-3">
+                <Animated.View entering={FadeInUp.delay(1600)}>
+                  <TouchableOpacity className="bg-white/30 rounded-2xl py-4 flex-row items-center justify-center border border-white/40">
+                    <Ionicons name="logo-google" size={24} color="#DB4437" />
+                    <Text className="text-slate-800 text-base font-semibold ml-3">
                       Continue with Google
                     </Text>
                   </TouchableOpacity>
@@ -249,16 +279,16 @@ export default function SignInScreen() {
             {/* Footer */}
             <Animated.View
               entering={FadeInUp.delay(1800)}
-              className="px-6 pb-8 pt-4"
+              className="px-6 pt-8 pb-4"
             >
               <View className="flex-row justify-center items-center">
-                <Text className="text-white/60 text-sm">
+                <Text className="text-slate-700 text-base">
                   Don&apos;t have an account?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() => router.push("/(auth)/sign-up")}
                 >
-                  <Text className="text-white text-sm font-semibold">
+                  <Text className="text-slate-800 text-base font-bold">
                     Sign Up
                   </Text>
                 </TouchableOpacity>

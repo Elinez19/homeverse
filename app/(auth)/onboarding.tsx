@@ -135,9 +135,9 @@ export default function Onboarding({
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={onCTAPress}
-              className="w-full self-center items-center justify-center rounded-3xl bg-white/95 px-10 py-4"
+              className="w-full self-center items-center justify-center rounded-3xl bg-slate-800 px-10 py-4"
             >
-              <Text className="text-lg font-semibold text-gray-800">
+              <Text className="text-lg font-semibold text-white">
                 {ctaLabel}
               </Text>
             </TouchableOpacity>

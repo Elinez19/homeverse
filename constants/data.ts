@@ -66,14 +66,13 @@ export const defaultOnboarding: Onboarding[] = [
     description: "Fix and maintain your home appliances",
   },
 ];
-
 /* ---------- Gradient Colors ---------- */
 export const gradientColors = {
-  primary: ["#FF4500", "#FF6347", "#FF7F50"] as const,
+  primary: ["#FFFFFF", "#F8F9FA", "#F1F3F5"] as const,
   secondary: [
-    "rgba(255, 69, 0, 0.2)", // soft orangered
-    "rgba(255, 99, 71, 0.15)", // tomato tint
-    "rgba(255, 127, 80, 0.1)", // coral tint
+    "rgba(255, 255, 255, 0.95)", // pure white
+    "rgba(248, 249, 250, 0.85)", // off-white
+    "rgba(241, 243, 245, 0.75)", // light gray-white
   ] as const,
   cardOverlay: [
     "transparent",
@@ -81,7 +80,6 @@ export const gradientColors = {
     "rgba(0, 0, 0, 0.55)",
   ] as const,
 };
-
 /* ---------- Animation Constants ---------- */
 export const animationConfig = {
   splashDelay: 3000,

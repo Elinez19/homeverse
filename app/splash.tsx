@@ -83,22 +83,22 @@ export default function SplashScreen() {
           {/* App Icon/Logo */}
           <View className="w-24 h-24 rounded-3xl bg-white/20 items-center justify-center mb-6 shadow-lg">
             <View className="w-16 h-16 rounded-2xl bg-white/30 items-center justify-center">
-              <Text className="text-3xl font-bold text-white">H</Text>
+              <Text className="text-3xl font-bold text-black">H</Text>
             </View>
           </View>
 
           {/* App Name */}
-          <Text className="text-4xl font-bold text-white mb-2">
+          <Text className="text-4xl font-bold text-black mb-2">
             {appConfig.name}
           </Text>
-          <Text className="text-lg text-white/80 font-medium">
+          <Text className="text-lg text-black/80 font-medium">
             {appConfig.tagline}
           </Text>
         </Animated.View>
 
         {/* Animated tagline */}
         <Animated.View style={textAnimatedStyle} className="items-center px-8">
-          <Text className="text-center text-white/90 text-lg font-medium leading-6">
+          <Text className="text-center text-black/90 text-lg font-medium leading-6">
             {appConfig.description}
           </Text>
         </Animated.View>
@@ -108,15 +108,15 @@ export default function SplashScreen() {
           entering={FadeIn.delay(1500)}
           className="absolute bottom-20 items-center"
         >
-          <View className="w-8 h-8 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+          <View className="w-8 h-8 rounded-full border-2 border-black/30 border-t-black animate-spin" />
         </Animated.View>
       </SafeAreaView>
 
       {/* Decorative elements */}
-      <View className="absolute top-20 left-8 w-16 h-16 rounded-full bg-white/10" />
-      <View className="absolute top-40 right-12 w-12 h-12 rounded-full bg-white/15" />
-      <View className="absolute bottom-40 left-16 w-20 h-20 rounded-full bg-white/10" />
-      <View className="absolute bottom-60 right-8 w-14 h-14 rounded-full bg-white/15" />
+      <View className="absolute top-20 left-8 w-16 h-16 rounded-full bg-black/10" />
+      <View className="absolute top-40 right-12 w-12 h-12 rounded-full bg-black/15" />
+      <View className="absolute bottom-40 left-16 w-20 h-20 rounded-full bg-black/10" />
+      <View className="absolute bottom-60 right-8 w-14 h-14 rounded-full bg-black/15" />
     </View>
   );
 }

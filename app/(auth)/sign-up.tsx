@@ -1,8 +1,10 @@
 import { gradientColors } from "@/constants/data";
 import { SignUpFormData, signUpSchema } from "@/validation/schemas";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -126,22 +128,31 @@ export default function SignUpScreen() {
           className="flex-1"
         >
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
             {/* Header */}
             <Animated.View
               entering={FadeInUp.delay(200).springify()}
-              className="items-center pt-6 pb-4"
+              className="items-center pt-8 pb-6 px-6"
             >
-              <View className="w-16 h-16 rounded-2xl bg-white/20 items-center justify-center mb-3">
-                <Text className="text-2xl font-bold text-white">HV</Text>
+              <View
+                className="w-20 h-20 rounded-3xl bg-white/25 items-center justify-center mb-4"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 8 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 12,
+                  elevation: 10,
+                }}
+              >
+                <Text className="text-3xl font-bold text-slate-800">HV</Text>
               </View>
-              <Text className="text-2xl font-bold text-white mb-1">
+              <Text className="text-3xl font-bold text-slate-800 mb-2">
                 Create Account
               </Text>
-              <Text className="text-white/80 text-center px-8 text-sm">
+              <Text className="text-slate-700 text-center text-base">
                 Join HomeVerse and get started
               </Text>
             </Animated.View>
@@ -149,104 +160,138 @@ export default function SignUpScreen() {
             {/* Form */}
             <Animated.View
               entering={FadeInUp.delay(400).springify()}
-              className="flex-1 px-6"
+              className="flex-1 px-6 mt-4"
             >
-              <View className="space-y-3">
-                {/* Name Row */}
+              <View className="space-y-5">
                 {/* Full Name Input */}
                 <Animated.View entering={FadeInDown.delay(600)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Full Name
                   </Text>
-                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                    <TextInput
-                      value={formData.fullName}
-                      onChangeText={(value) =>
-                        handleInputChange("fullName", value)
-                      }
-                      placeholder="Enter your full name"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      className="text-white text-sm"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="person-outline"
+                        size={20}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.fullName}
+                        onChangeText={(value) =>
+                          handleInputChange("fullName", value)
+                        }
+                        placeholder="Enter your full name"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Email Input */}
                 <Animated.View entering={FadeInDown.delay(800)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Email
                   </Text>
-                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                    <TextInput
-                      value={formData.email}
-                      onChangeText={(value) =>
-                        handleInputChange("email", value)
-                      }
-                      placeholder="Enter your email"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      className="text-white text-sm"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="mail-outline"
+                        size={20}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.email}
+                        onChangeText={(value) =>
+                          handleInputChange("email", value)
+                        }
+                        placeholder="Enter your email"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Phone Input */}
                 <Animated.View entering={FadeInDown.delay(1000)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Phone Number
                   </Text>
-                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                    <TextInput
-                      value={formData.phone}
-                      onChangeText={(value) =>
-                        handleInputChange("phone", value)
-                      }
-                      placeholder="Enter your phone number"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      keyboardType="phone-pad"
-                      className="text-white text-sm"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="call-outline"
+                        size={20}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.phone}
+                        onChangeText={(value) =>
+                          handleInputChange("phone", value)
+                        }
+                        placeholder="Enter your phone number"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        keyboardType="phone-pad"
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Password Input */}
                 <Animated.View entering={FadeInDown.delay(1200)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Password
                   </Text>
-                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                    <TextInput
-                      value={formData.password}
-                      onChangeText={(value) =>
-                        handleInputChange("password", value)
-                      }
-                      placeholder="Create a password"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      secureTextEntry
-                      className="text-white text-sm"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="lock-closed-outline"
+                        size={20}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.password}
+                        onChangeText={(value) =>
+                          handleInputChange("password", value)
+                        }
+                        placeholder="Create a password"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        secureTextEntry
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Confirm Password Input */}
                 <Animated.View entering={FadeInDown.delay(1400)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Confirm Password
                   </Text>
-                  <View className="bg-white/20 rounded-xl px-3 py-3 border border-white/30">
-                    <TextInput
-                      value={formData.confirmPassword}
-                      onChangeText={(value) =>
-                        handleInputChange("confirmPassword", value)
-                      }
-                      placeholder="Confirm your password"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      secureTextEntry
-                      className="text-white text-sm"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/50 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="lock-closed-outline"
+                        size={20}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.confirmPassword}
+                        onChangeText={(value) =>
+                          handleInputChange("confirmPassword", value)
+                        }
+                        placeholder="Confirm your password"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        secureTextEntry
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Terms */}
@@ -254,29 +299,36 @@ export default function SignUpScreen() {
                   entering={FadeInDown.delay(1600)}
                   className="flex-row items-start mt-2"
                 >
-                  <View className="w-4 h-4 rounded border border-white/40 mr-2 mt-0.5" />
-                  <Text className="text-white/70 text-xs flex-1">
+                  <View className="w-5 h-5 rounded-md border-2 border-slate-700 mr-3 mt-0.5 bg-white/20" />
+                  <Text className="text-slate-700 text-xs flex-1 leading-5">
                     By signing up, you agree to our{" "}
-                    <Text className="text-white font-medium">
+                    <Text className="text-slate-800 font-semibold">
                       Terms of Service
                     </Text>{" "}
                     and{" "}
-                    <Text className="text-white font-medium">
+                    <Text className="text-slate-800 font-semibold">
                       Privacy Policy
                     </Text>
                   </Text>
                 </Animated.View>
 
                 {/* Sign Up Button */}
-                <Animated.View entering={FadeInUp.delay(1800)}>
+                <Animated.View entering={FadeInUp.delay(1800)} className="mt-6">
                   <Animated.View style={buttonAnimatedStyle}>
                     <TouchableOpacity
                       onPress={handleSignUp}
                       disabled={isLoading}
-                      className="bg-white rounded-xl py-3 items-center shadow-lg mt-4"
+                      className="bg-slate-800 rounded-2xl py-4 items-center"
                       activeOpacity={0.8}
+                      style={{
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 6 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 10,
+                        elevation: 8,
+                      }}
                     >
-                      <Text className="text-gray-800 text-base font-semibold">
+                      <Text className="text-white text-lg font-bold">
                         {isLoading ? "Creating Account..." : "Create Account"}
                       </Text>
                     </TouchableOpacity>
@@ -288,16 +340,16 @@ export default function SignUpScreen() {
             {/* Footer */}
             <Animated.View
               entering={FadeInUp.delay(2000)}
-              className="px-6 pb-8 pt-4"
+              className="px-6 pt-6 pb-4"
             >
               <View className="flex-row justify-center items-center">
-                <Text className="text-white/60 text-sm">
+                <Text className="text-slate-700 text-base">
                   Already have an account?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() => router.push("/(auth)/sign-in")}
                 >
-                  <Text className="text-white text-sm font-semibold">
+                  <Text className="text-slate-800 text-base font-bold">
                     Sign In
                   </Text>
                 </TouchableOpacity>

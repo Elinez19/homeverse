@@ -5,7 +5,7 @@ import {
 } from "@/validation/schemas";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -49,7 +49,6 @@ export default function ForgotPasswordScreen() {
     try {
       // Validate form data using Zod
       const validatedData = forgotPasswordSchema.parse(formData);
-
       setIsLoading(true);
 
       // Animate button press
