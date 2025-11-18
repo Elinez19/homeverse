@@ -3,6 +3,8 @@ import {
   ForgotPasswordFormData,
   forgotPasswordSchema,
 } from "@/validation/schemas";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -48,7 +50,7 @@ export default function ForgotPasswordScreen() {
   const handleResetPassword = async () => {
     try {
       // Validate form data using Zod
-      const validatedData = forgotPasswordSchema.parse(formData);
+      forgotPasswordSchema.parse(formData);
       setIsLoading(true);
 
       // Animate button press
@@ -135,17 +137,25 @@ export default function ForgotPasswordScreen() {
             {/* Header */}
             <Animated.View
               entering={FadeInUp.delay(200).springify()}
-              className="items-center pt-8 pb-6"
+              className="items-center pt-12 pb-8 px-6"
             >
-              <View className="w-20 h-20 rounded-2xl bg-white/20 items-center justify-center mb-4">
-                <Text className="text-3xl font-bold text-white">🔒</Text>
+              <View
+                className="w-24 h-24 rounded-3xl bg-white/25 items-center justify-center mb-5"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 8 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 12,
+                  elevation: 10,
+                }}
+              >
+                <Text className="text-4xl font-bold text-slate-800">🔒</Text>
               </View>
-              <Text className="text-3xl font-bold text-white mb-2">
+              <Text className="text-3xl font-bold text-slate-800 mb-2 text-center">
                 Forgot Password?
               </Text>
-              <Text className="text-white/80 text-center px-8">
-                Don&apos;t worry! Enter your email and we&apos;ll send you a
-                reset link.
+              <Text className="text-slate-700 text-center text-base px-4">
+                Enter your email and we&apos;ll send you a secure reset link.
               </Text>
             </Animated.View>
 
@@ -157,23 +167,30 @@ export default function ForgotPasswordScreen() {
               <View className="space-y-6">
                 {/* Email Input */}
                 <Animated.View entering={FadeInDown.delay(600)}>
-                  <Text className="text-white/90 text-sm font-medium mb-2">
+                  <Text className="text-slate-800 text-sm font-semibold mb-2 ml-1">
                     Email Address
                   </Text>
-                  <View className="bg-white/20 rounded-2xl px-4 py-4 border border-white/30">
-                    <TextInput
-                      value={formData.email}
-                      onChangeText={(value) =>
-                        handleInputChange("email", value)
-                      }
-                      placeholder="Enter your email address"
-                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      className="text-white text-base"
-                    />
-                  </View>
+                  <BlurView intensity={35} tint="light" className="rounded-2xl">
+                    <View className="bg-white/60 rounded-2xl px-5 py-5 flex-row items-center">
+                      <Ionicons
+                        name="mail-outline"
+                        size={22}
+                        color="rgba(0, 0, 0, 0.7)"
+                      />
+                      <TextInput
+                        value={formData.email}
+                        onChangeText={(value) =>
+                          handleInputChange("email", value)
+                        }
+                        placeholder="Enter your email address"
+                        placeholderTextColor="rgba(0, 0, 0, 0.5)"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        className="text-slate-800 text-base flex-1 ml-3"
+                      />
+                    </View>
+                  </BlurView>
                 </Animated.View>
 
                 {/* Reset Button */}
@@ -182,10 +199,17 @@ export default function ForgotPasswordScreen() {
                     <TouchableOpacity
                       onPress={handleResetPassword}
                       disabled={isLoading}
-                      className="bg-white rounded-2xl py-4 items-center shadow-lg"
+                      className="bg-slate-800 rounded-2xl py-4 items-center"
                       activeOpacity={0.8}
+                      style={{
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 6 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 10,
+                        elevation: 8,
+                      }}
                     >
-                      <Text className="text-gray-800 text-lg font-semibold">
+                      <Text className="text-white text-lg font-bold">
                         {isLoading ? "Sending..." : "Send Reset Link"}
                       </Text>
                     </TouchableOpacity>
@@ -195,9 +219,9 @@ export default function ForgotPasswordScreen() {
                 {/* Help Text */}
                 <Animated.View
                   entering={FadeIn.delay(1000)}
-                  className="bg-white/10 rounded-2xl p-4"
+                  className="bg-white/80 rounded-2xl p-4"
                 >
-                  <Text className="text-white/80 text-sm text-center leading-5">
+                  <Text className="text-slate-700 text-sm text-center leading-5">
                     💡 Make sure to check your spam folder if you don&apos;t
                     receive the email within a few minutes.
                   </Text>
@@ -211,13 +235,13 @@ export default function ForgotPasswordScreen() {
               className="px-6 pb-8 pt-4"
             >
               <View className="flex-row justify-center items-center">
-                <Text className="text-white/60 text-sm">
+                <Text className="text-slate-600 text-sm">
                   Remember your password?{" "}
                 </Text>
                 <TouchableOpacity
                   onPress={() => router.push("/(auth)/sign-in")}
                 >
-                  <Text className="text-white text-sm font-semibold">
+                  <Text className="text-slate-800 text-sm font-semibold">
                     Sign In
                   </Text>
                 </TouchableOpacity>

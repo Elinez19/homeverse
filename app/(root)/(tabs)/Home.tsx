@@ -1,21 +1,149 @@
+import { gradientColors } from "@/constants/data";
+import { CategoriesCarousel } from "@/components/home/CategoriesCarousel";
+import { HeroCarousel } from "@/components/home/HeroCarousel";
+import { HomeHeader } from "@/components/home/HomeHeader";
+import { SearchBar } from "@/components/home/SearchBar";
+import { ServiceCard } from "@/components/home/ServiceCard";
+import { SectionCard } from "@/components/home/SectionCard";
 import { LinearGradient } from "expo-linear-gradient";
-import { Text, View } from "react-native";
+import { ScrollView, StatusBar, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+
+const heroBanners = [
+  {
+    title: "Special Offer",
+    subtitle: "Up to 40% off premium cleaning packages",
+    cta: "Book Now",
+    image:
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&w=600&q=60",
+    color: ["#3b82f6", "#60a5fa"],
+  },
+  {
+    title: "Emergency Repairs",
+    subtitle: "24/7 on-call technicians for urgent fixes",
+    cta: "Call Support",
+    image:
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&w=600&q=60",
+    color: ["#6366f1", "#8b5cf6"],
+  },
+];
+
+const categories = [
+  { icon: "sparkles-outline", label: "Cleaning" },
+  { icon: "flash-outline", label: "Electrical" },
+  { icon: "construct-outline", label: "Repairs" },
+  { icon: "leaf-outline", label: "Landscaping" },
+  { icon: "thermometer-outline", label: "HVAC" },
+  { icon: "color-palette-outline", label: "Painting" },
+];
+
+const services = [
+  {
+    title: "Premium Kitchen Deep Clean",
+    provider: "Sparkle Crew",
+    rating: 4.8,
+    price: "$95.00 / visit",
+    location: "Brooklyn, NY",
+    image:
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=800&q=60",
+  },
+  {
+    title: "Smart Home Installation",
+    provider: "Tech Builders",
+    rating: 4.9,
+    price: "$120.00 / hr",
+    location: "Queens, NY",
+    image:
+      "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&w=800&q=60",
+  },
+  {
+    title: "Landscape Refresh",
+    provider: "Outdoor Oasis",
+    rating: 4.7,
+    price: "$180.00 / project",
+    location: "Jersey City, NJ",
+    image:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=800&q=60",
+  },
+];
 
 export default function HomeScreen() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <View className="flex-1">
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <LinearGradient
-        colors={["#FFD700", "#FFA500", "#FFE4B5"]}
+        colors={gradientColors.primary}
         className="absolute inset-0"
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       />
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-3xl font-bold text-white mb-4">HomeVerse</Text>
-        <Text className="text-white/80 text-center px-8">
-          Welcome to your home services dashboard!
-        </Text>
-      </View>
+      <LinearGradient
+        colors={gradientColors.secondary}
+        className="absolute inset-0"
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      />
+
+      <SafeAreaView className="flex-1">
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 32 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View className="px-6 pt-6">
+            <HomeHeader
+              location="New York, USA"
+              avatarUrl="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&w=200&q=60"
+            />
+          </View>
+
+          <View className="px-6 mt-5">
+            <SearchBar
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholder="Search for cleaning, electrical..."
+            />
+          </View>
+
+          <View className="px-6 mt-6">
+            <SectionCard
+              title="Highlights"
+              actionLabel="View All"
+              contentClassName="pb-0"
+            >
+              <HeroCarousel
+                banners={heroBanners}
+                containerStyle={{ marginTop: 0, marginBottom: 12, height: 210 }}
+                horizontalInset={0}
+              />
+            </SectionCard>
+          </View>
+
+          {/* Categories */}
+          <View className="px-6 mt-6">
+            <SectionCard title="All Categories" actionLabel="View All">
+              <CategoriesCarousel categories={categories} />
+            </SectionCard>
+          </View>
+
+          {/* Services */}
+          <View className="px-6 mt-6">
+            <SectionCard title="Popular Services" actionLabel="View All">
+              <View className="space-y-5">
+                {services.map((service) => (
+                  <ServiceCard key={service.title} service={service} />
+                ))}
+              </View>
+            </SectionCard>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }
