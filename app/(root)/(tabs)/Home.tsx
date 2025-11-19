@@ -31,6 +31,36 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
+  // Filter services based on search query
+  const filteredServices = services.filter((service) => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      service.title.toLowerCase().includes(query) ||
+      service.provider.name.toLowerCase().includes(query) ||
+      service.location.toLowerCase().includes(query)
+    );
+  });
+
+
+  // Filter featured services based on search query
+  const filteredFeaturedServices = featuredServices.filter((service) => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      service.title.toLowerCase().includes(query) ||
+      service.category.toLowerCase().includes(query) ||
+      service.description.toLowerCase().includes(query)
+    );
+  });
+
+  // Filter categories based on search query
+  const filteredCategories = categories.filter((category) => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return category.label.toLowerCase().includes(query);
+  });
+
   return (
     <View className="flex-1">
       <StatusBar
@@ -92,7 +122,7 @@ export default function HomeScreen() {
               actionLabel="View All"
               onActionPress={() => router.push("/categories")}
             >
-              <CategoriesCarousel categories={categories} />
+              <CategoriesCarousel categories={filteredCategories} />
             </SectionCard>
           </View>
 
@@ -104,7 +134,7 @@ export default function HomeScreen() {
               onActionPress={() => router.push("/popular-services")}
             >
               <View className="mt-2">
-                {featuredServices.map((service) => (
+                {filteredFeaturedServices.map((service) => (
                   <FeaturedServiceCard
                     key={service.id}
                     title={service.title}
@@ -244,7 +274,7 @@ export default function HomeScreen() {
               onActionPress={() => router.push("/popular-services")}
             >
               <View className="space-y-5">
-                {services.map((service) => (
+                {filteredServices.map((service) => (
                   <ServiceCard
                     key={service.id}
                     service={service}

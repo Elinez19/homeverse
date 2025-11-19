@@ -3,6 +3,7 @@ import { CategoryImageCard } from "@/components/explore/CategoryImageCard";
 import { ExpertTipCard } from "@/components/explore/ExpertTipCard";
 import { ExploreServiceCard } from "@/components/explore/ExploreServiceCard";
 import { TrendingServiceCard } from "@/components/explore/TrendingServiceCard";
+import { SearchBar } from "@/components/home/SearchBar";
 import {
   expertTips,
   exploreCategoriesWithImages,
@@ -14,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Modal,
   Pressable,
   ScrollView,
   StatusBar,
@@ -34,6 +36,46 @@ const categories = [
 export default function ExploreScreen() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchModal, setShowSearchModal] = useState(false);
+
+  // Filter services based on selected category and search query
+  const filteredServices = services.filter((service) => {
+    // Get the service detail to access the category
+    const serviceDetail = require("@/constants/services").getServiceDetail(service.id);
+    if (!serviceDetail) return false;
+    
+    // Category filter
+    let categoryMatch = true;
+    if (activeCategory !== "All") {
+      const categoryMap: { [key: string]: string[] } = {
+        "Repairing": ["Repair", "Repairs"],
+        "Electrical": ["Electrical", "Home Automation"],
+        "Plumbing": ["Plumbing"],
+        "Cleaning": ["Cleaning", "Home Cleaning"],
+        "Painting": ["Painting"],
+      };
+      
+      const matchCategories = categoryMap[activeCategory] || [activeCategory];
+      categoryMatch = matchCategories.some(cat => 
+        serviceDetail.category.toLowerCase().includes(cat.toLowerCase())
+      );
+    }
+    
+    // Search query filter
+    let searchMatch = true;
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      searchMatch = (
+        service.title.toLowerCase().includes(query) ||
+        serviceDetail.category.toLowerCase().includes(query) ||
+        service.provider.name.toLowerCase().includes(query) ||
+        service.location.toLowerCase().includes(query)
+      );
+    }
+    
+    return categoryMatch && searchMatch;
+  });
 
   return (
     <SafeAreaView className="flex-1 bg-slate-50" edges={["top"]}>
@@ -49,7 +91,10 @@ export default function ExploreScreen() {
         </View>
 
         <View className="flex-row gap-3">
-          <Pressable className="w-10 h-10 rounded-full bg-slate-50 items-center justify-center active:bg-slate-100">
+          <Pressable 
+            onPress={() => setShowSearchModal(true)}
+            className="w-10 h-10 rounded-full bg-slate-50 items-center justify-center active:bg-slate-100"
+          >
             <Ionicons name="search-outline" size={22} color="#1e293b" />
           </Pressable>
           <Pressable className="w-10 h-10 rounded-full bg-slate-50 items-center justify-center active:bg-slate-100">
@@ -256,7 +301,7 @@ export default function ExploreScreen() {
 
           {/* Service List */}
           <View className="px-6">
-            {services.slice(0, 4).map((service) => (
+            {filteredServices.slice(0, 4).map((service) => (
               <ExploreServiceCard
                 key={service.id}
                 service={service}
@@ -277,6 +322,70 @@ export default function ExploreScreen() {
           </Pressable>
         </View>
       </ScrollView>
+
+      {/* Search Modal */}
+      <Modal
+        visible={showSearchModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowSearchModal(false)}
+      >
+        <SafeAreaView className="flex-1 bg-white">
+          <View className="px-6 py-4 border-b border-slate-200">
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-2xl font-bold text-slate-900">Search</Text>
+              <Pressable
+                onPress={() => {
+                  setShowSearchModal(false);
+                  setSearchQuery("");
+                }}
+                className="w-10 h-10 rounded-full bg-slate-100 items-center justify-center"
+              >
+                <Ionicons name="close" size={24} color="#1e293b" />
+              </Pressable>
+            </View>
+            <SearchBar
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholder="Search services, categories..."
+            />
+          </View>
+
+          <ScrollView className="flex-1 px-6 py-4">
+            {searchQuery.trim() ? (
+              <>
+                <Text className="text-lg font-bold text-slate-900 mb-4">
+                  Found {filteredServices.length} service{filteredServices.length !== 1 ? 's' : ''}
+                </Text>
+                {filteredServices.map((service) => (
+                  <ExploreServiceCard
+                    key={service.id}
+                    service={service}
+                    onPress={() => {
+                      setShowSearchModal(false);
+                      router.push(`/service/${service.id}`);
+                    }}
+                    onBookmarkPress={() => {}}
+                  />
+                ))}
+                {filteredServices.length === 0 && (
+                  <View className="items-center justify-center py-12">
+                    <Ionicons name="search-outline" size={64} color="#cbd5e1" />
+                    <Text className="text-slate-500 text-lg mt-4">No services found</Text>
+                    <Text className="text-slate-400 text-sm mt-2">Try a different search term</Text>
+                  </View>
+                )}
+              </>
+            ) : (
+              <View className="items-center justify-center py-12">
+                <Ionicons name="search-outline" size={64} color="#cbd5e1" />
+                <Text className="text-slate-500 text-lg mt-4">Start typing to search</Text>
+                <Text className="text-slate-400 text-sm mt-2">Search for services, categories, or providers</Text>
+              </View>
+            )}
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 }
