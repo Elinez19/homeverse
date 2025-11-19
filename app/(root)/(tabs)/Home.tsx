@@ -1,14 +1,16 @@
-import { gradientColors } from "@/constants/data";
 import { CategoriesCarousel } from "@/components/home/CategoriesCarousel";
 import { HeroCarousel } from "@/components/home/HeroCarousel";
 import { HomeHeader } from "@/components/home/HomeHeader";
 import { SearchBar } from "@/components/home/SearchBar";
-import { ServiceCard } from "@/components/home/ServiceCard";
 import { SectionCard } from "@/components/home/SectionCard";
+import { ServiceCard } from "@/components/home/ServiceCard";
+import { gradientColors } from "@/constants/data";
+import { services } from "@/constants/services";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import { ScrollView, StatusBar, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
 
 const heroBanners = [
   {
@@ -38,38 +40,9 @@ const categories = [
   { icon: "color-palette-outline", label: "Painting" },
 ];
 
-const services = [
-  {
-    title: "Premium Kitchen Deep Clean",
-    provider: "Sparkle Crew",
-    rating: 4.8,
-    price: "$95.00 / visit",
-    location: "Brooklyn, NY",
-    image:
-      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=800&q=60",
-  },
-  {
-    title: "Smart Home Installation",
-    provider: "Tech Builders",
-    rating: 4.9,
-    price: "$120.00 / hr",
-    location: "Queens, NY",
-    image:
-      "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&w=800&q=60",
-  },
-  {
-    title: "Landscape Refresh",
-    provider: "Outdoor Oasis",
-    rating: 4.7,
-    price: "$180.00 / project",
-    location: "Jersey City, NJ",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=800&q=60",
-  },
-];
-
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
   return (
     <View className="flex-1">
@@ -137,7 +110,22 @@ export default function HomeScreen() {
             <SectionCard title="Popular Services" actionLabel="View All">
               <View className="space-y-5">
                 {services.map((service) => (
-                  <ServiceCard key={service.title} service={service} />
+                  <ServiceCard
+                    key={service.id}
+                    service={service}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/service/[serviceId]",
+                        params: { serviceId: service.id },
+                      })
+                    }
+                    onBookPress={() =>
+                      router.push({
+                        pathname: "/service/[serviceId]",
+                        params: { serviceId: service.id },
+                      })
+                    }
+                  />
                 ))}
               </View>
             </SectionCard>

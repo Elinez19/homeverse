@@ -1,23 +1,19 @@
+import { ServiceSummary } from "@/types/service";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
-export type Service = {
-  title: string;
-  provider: string;
-  rating: number;
-  price: string;
-  location: string;
-  image: string;
-};
-
 type ServiceCardProps = {
-  service: Service;
+  service: ServiceSummary;
   onPress?: () => void;
   onBookPress?: () => void;
 };
 
-export function ServiceCard({ service, onPress, onBookPress }: ServiceCardProps) {
+export function ServiceCard({
+  service,
+  onPress,
+  onBookPress,
+}: ServiceCardProps) {
   return (
     <BlurView intensity={30} tint="light" className="rounded-3xl">
       <TouchableOpacity
@@ -58,4 +54,3 @@ export function ServiceCard({ service, onPress, onBookPress }: ServiceCardProps)
     </BlurView>
   );
 }
-
