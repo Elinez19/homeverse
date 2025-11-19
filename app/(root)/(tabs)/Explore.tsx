@@ -1,109 +1,105 @@
-import { gradientColors } from "@/constants/data";
+import { ExploreServiceCard } from "@/components/explore/ExploreServiceCard";
+import { services } from "@/constants/services";
 import { Ionicons } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
-import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
+    FlatList,
+    Pressable,
+    ScrollView,
+    StatusBar,
+    Text,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const categories = [
-  { icon: "sparkles-outline", title: "Cleaning", desc: "Deep, move-out, seasonal" },
-  { icon: "construct-outline", title: "Repairs", desc: "Plumbing, electrical, HVAC" },
-  { icon: "color-palette-outline", title: "Upgrades", desc: "Painting, smart home" },
-  { icon: "leaf-outline", title: "Outdoor", desc: "Lawn, pool, landscaping" },
-] as const;
+  "All",
+  "Repairing",
+  "Electrical",
+  "Plumbing",
+  "Cleaning",
+  "Painting",
+];
 
 export default function ExploreScreen() {
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState("All");
+
   return (
-    <View className="flex-1">
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <LinearGradient
-        colors={gradientColors.primary}
-        className="absolute inset-0"
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      />
-      <LinearGradient
-        colors={gradientColors.secondary}
-        className="absolute inset-0"
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      />
-
-      <SafeAreaView className="flex-1">
-        <ScrollView
-          contentContainerStyle={{ paddingBottom: 32 }}
-          showsVerticalScrollIndicator={false}
+    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+      
+      {/* Header */}
+      <View className="px-6 py-4 flex-row items-center justify-between">
+        <Pressable
+          onPress={() => router.back()}
+          className="w-10 h-10 rounded-full bg-slate-50 items-center justify-center active:bg-slate-100"
         >
-          <View className="px-6 pt-6 space-y-6">
-            <View>
-              <Text className="text-3xl font-bold text-slate-900">
-                Explore services
-              </Text>
-              <Text className="text-slate-600 mt-1">
-                Curated experiences to keep your home thriving.
-              </Text>
-            </View>
+          <Ionicons name="chevron-back" size={24} color="#1e293b" />
+        </Pressable>
+        
+        <Text className="text-lg font-bold text-slate-900">
+          Most Popular Services
+        </Text>
+        
+        <View className="flex-row gap-3">
+          <Pressable>
+            <Ionicons name="notifications-outline" size={24} color="#1e293b" />
+          </Pressable>
+          <Pressable>
+            <Ionicons name="ellipsis-vertical" size={24} color="#1e293b" />
+          </Pressable>
+        </View>
+      </View>
 
-            <BlurView intensity={35} tint="light" className="rounded-3xl">
-              <View className="rounded-3xl bg-white/70 p-5 space-y-4">
-                <Text className="text-lg font-semibold text-slate-900">
-                  Featured concierge
-                </Text>
-                <Text className="text-slate-600 leading-5">
-                  Pair multiple services together—book a cleaning crew, a
-                  same-day handyman, and appliance refresh in one flow.
-                </Text>
-                <TouchableOpacity className="self-start" activeOpacity={0.7}>
-                  <Text className="text-slate-900 font-semibold">
-                    Build a project →
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </BlurView>
-
-            <View className="space-y-4">
-              {categories.map((cat) => (
-                <BlurView
-                  key={cat.title}
-                  intensity={30}
-                  tint="light"
-                  className="rounded-3xl"
+      {/* Categories */}
+      <View className="mt-2">
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 24, gap: 12 }}
+          className="py-2"
+        >
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <Pressable
+                key={cat}
+                onPress={() => setActiveCategory(cat)}
+                className={`px-6 py-2.5 rounded-full border ${
+                  isActive
+                    ? "bg-slate-900 border-slate-900"
+                    : "bg-white border-slate-200"
+                }`}
+              >
+                <Text
+                  className={`font-semibold ${
+                    isActive ? "text-white" : "text-slate-500"
+                  }`}
                 >
-                  <TouchableOpacity
-                    className="rounded-3xl bg-white/65 px-5 py-4 flex-row items-center"
-                    activeOpacity={0.75}
-                  >
-                    <View className="w-12 h-12 rounded-2xl bg-slate-900/90 items-center justify-center mr-4">
-                      <Ionicons name={cat.icon} size={22} color="#fff" />
-                    </View>
-                    <View className="flex-1">
-                      <Text className="text-slate-900 text-lg font-semibold">
-                        {cat.title}
-                      </Text>
-                      <Text className="text-slate-600 text-sm">{cat.desc}</Text>
-                    </View>
-                    <Ionicons
-                      name="chevron-forward"
-                      size={18}
-                      color="rgba(15,23,42,0.7)"
-                    />
-                  </TouchableOpacity>
-                </BlurView>
-              ))}
-            </View>
-          </View>
+                  {cat}
+                </Text>
+              </Pressable>
+            );
+          })}
         </ScrollView>
-      </SafeAreaView>
-    </View>
+      </View>
+
+      {/* Service List */}
+      <FlatList
+        data={services}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ExploreServiceCard
+            service={item}
+            onPress={() => router.push(`/service/${item.id}`)}
+            onBookmarkPress={() => {}}
+          />
+        )}
+        contentContainerStyle={{ padding: 24, paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
   );
 }

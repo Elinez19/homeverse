@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import {
-    Image,
-    ImageBackground,
-    Pressable,
-    Text,
-    View,
+  Image,
+  ImageBackground,
+  Pressable,
+  Text,
+  View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type ServiceDetailHeroProps = {
   image: string;
@@ -25,7 +26,7 @@ export function ServiceDetailHero({
   const extraCount = gallery.length - previewItems.length;
 
   return (
-    <View className="h-80 bg-slate-900 rounded-b-[36px] overflow-hidden">
+    <View className="h-[420px] bg-slate-900 rounded-b-[36px] overflow-hidden">
       <ImageBackground
         source={{ uri: image }}
         resizeMode="cover"
@@ -35,7 +36,7 @@ export function ServiceDetailHero({
           colors={["rgba(15,23,42,0.6)", "rgba(15,23,42,0.05)"]}
           className="absolute inset-0"
         />
-        <View className="flex-1 justify-between p-5">
+        <SafeAreaView className="flex-1 justify-between p-5">
           <View className="flex-row items-center justify-between">
             <Pressable
               onPress={onBackPress}
@@ -82,7 +83,7 @@ export function ServiceDetailHero({
               ))}
             </View>
           </View>
-        </View>
+        </SafeAreaView>
       </ImageBackground>
     </View>
   );
