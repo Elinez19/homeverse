@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 type ServiceActionsBarProps = {
   totalPrice: string;
@@ -21,13 +21,12 @@ export function ServiceActionsBar({
           {totalPrice}
         </Text>
       </View>
-      <TouchableOpacity
+      <Pressable
         onPress={onBookNow}
-        className="bg-emerald-500 rounded-2xl px-8 py-3"
-        activeOpacity={0.9}
+        className="bg-emerald-500 rounded-2xl px-8 py-3 active:opacity-90"
       >
         <Text className="text-white font-semibold text-base">Book Now</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

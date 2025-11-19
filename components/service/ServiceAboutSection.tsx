@@ -1,5 +1,5 @@
-import { Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
+import { Pressable, Text, View } from "react-native";
 
 type ServiceAboutSectionProps = {
   summary: string;
@@ -24,15 +24,14 @@ export function ServiceAboutSection({
       <Text className="text-slate-500 text-sm mt-2">{summary}</Text>
       <Text className="text-slate-600 text-sm mt-3 leading-5">{body}</Text>
       {isLong && (
-        <TouchableOpacity
+        <Pressable
           onPress={() => setExpanded((prev) => !prev)}
-          className="mt-2"
-          activeOpacity={0.8}
+          className="mt-2 active:opacity-80"
         >
           <Text className="text-emerald-600 font-semibold text-sm">
             {expanded ? "Show less" : "Read more"}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );

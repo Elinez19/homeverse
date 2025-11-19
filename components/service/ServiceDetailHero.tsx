@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    ImageBackground,
+    Pressable,
+    Text,
+    View,
 } from "react-native";
 
 type ServiceDetailHeroProps = {
@@ -37,32 +37,29 @@ export function ServiceDetailHero({
         />
         <View className="flex-1 justify-between p-5">
           <View className="flex-row items-center justify-between">
-            <TouchableOpacity
+            <Pressable
               onPress={onBackPress}
-              className="h-11 w-11 rounded-full bg-white/90 items-center justify-center"
-              activeOpacity={0.9}
+              className="h-11 w-11 rounded-full bg-white/90 items-center justify-center active:opacity-90"
             >
               <Ionicons name="chevron-back" size={22} color="#0f172a" />
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
               onPress={onFavoritePress}
-              className="h-11 w-11 rounded-full bg-white/90 items-center justify-center"
-              activeOpacity={0.9}
+              className="h-11 w-11 rounded-full bg-white/90 items-center justify-center active:opacity-90"
             >
               <Ionicons name="heart-outline" size={22} color="#0f172a" />
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <View className="items-center mb-6">
-            <TouchableOpacity
-              className="flex-row items-center gap-2 bg-white/95 rounded-full px-6 py-3"
-              activeOpacity={0.9}
+            <Pressable
+              className="flex-row items-center gap-2 bg-white/95 rounded-full px-6 py-3 active:opacity-90"
             >
               <Ionicons name="play-circle" size={22} color="#0f172a" />
               <Text className="text-slate-900 font-semibold text-base">
                 Demo Video
               </Text>
-            </TouchableOpacity>
+            </Pressable>
             <Text className="text-white/80 text-xs mt-2">1 min preview</Text>
           </View>
 

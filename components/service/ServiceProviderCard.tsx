@@ -1,6 +1,6 @@
-import { Ionicons } from "@expo/vector-icons";
 import { ServiceProviderInfo } from "@/types/service";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Image, Pressable, Text, View } from "react-native";
 
 type ServiceProviderCardProps = {
   provider: ServiceProviderInfo;
@@ -24,18 +24,16 @@ export function ServiceProviderCard({ provider }: ServiceProviderCardProps) {
           <Text className="text-slate-500 text-sm">{provider.role}</Text>
         </View>
         <View className="flex-row gap-3">
-          <TouchableOpacity
-            className="h-11 w-11 rounded-full bg-emerald-50 items-center justify-center"
-            activeOpacity={0.85}
+          <Pressable
+            className="h-11 w-11 rounded-full bg-emerald-50 items-center justify-center active:opacity-85"
           >
             <Ionicons name="chatbubble-ellipses" size={20} color="#059669" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            className="h-11 w-11 rounded-full bg-slate-900 items-center justify-center"
-            activeOpacity={0.85}
+          </Pressable>
+          <Pressable
+            className="h-11 w-11 rounded-full bg-slate-900 items-center justify-center active:opacity-85"
           >
             <Ionicons name="call" size={20} color="#fff" />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
       <Text className="text-slate-400 text-xs mt-3">Phone</Text>

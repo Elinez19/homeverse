@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 const tabs = ["About", "Gallery", "Review"] as const;
 
@@ -42,22 +42,30 @@ export function ServiceInfoTabs({
         {tabs.map((tab) => {
           const active = activeTab === tab;
           return (
-            <TouchableOpacity
+            <Pressable
               key={tab}
               onPress={() => onTabChange(tab)}
-              className={`flex-1 px-4 py-2 rounded-2xl ${
-                active ? "bg-white shadow shadow-slate-900/10" : ""
-              }`}
-              activeOpacity={0.9}
+              className="flex-1 px-4 py-2 rounded-2xl"
+              style={
+                active
+                  ? {
+                      backgroundColor: "white",
+                      shadowColor: "#0f172a",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.1,
+                      shadowRadius: 2,
+                      elevation: 2,
+                    }
+                  : undefined
+              }
             >
               <Text
-                className={`text-center text-sm font-semibold ${
-                  active ? "text-slate-900" : "text-slate-400"
-                }`}
+                className="text-center text-sm font-semibold"
+                style={{ color: active ? "#0f172a" : "#94a3b8" }}
               >
                 {tab}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           );
         })}
       </View>

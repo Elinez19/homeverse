@@ -35,7 +35,7 @@ export function ServiceCard({
             </View>
           </View>
           <Text className="text-slate-600 text-sm">
-            by {service.provider} • {service.location}
+            by {service.provider.name} • {service.location}
           </Text>
           <View className="flex-row items-center justify-between mt-2">
             <Text className="text-slate-900 text-base font-semibold">

@@ -1,7 +1,7 @@
 export type ServiceSummary = {
   id: string;
   title: string;
-  provider: string;
+  provider: ServiceProviderInfo;
   rating: number;
   price: string;
   location: string;
