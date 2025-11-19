@@ -1,11 +1,11 @@
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  Image,
-  StyleProp,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
+    Image,
+    StyleProp,
+    Text,
+    TouchableOpacity,
+    View,
+    ViewStyle,
 } from "react-native";
 import Swiper from "react-native-swiper";
 
@@ -14,11 +14,11 @@ export type HeroBanner = {
   subtitle: string;
   cta: string;
   image: string;
-  color: [string, string];
+  color: [string, string] | readonly [string, string];
 };
 
 type HeroCarouselProps = {
-  banners: HeroBanner[];
+  banners: HeroBanner[] | readonly HeroBanner[];
   containerStyle?: StyleProp<ViewStyle>;
   horizontalInset?: number;
 };

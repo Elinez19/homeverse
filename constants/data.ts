@@ -97,3 +97,63 @@ export const appConfig = {
   carouselSpeed: 60,
   blurIntensity: 65,
 };
+
+/* ---------- Home Screen Data ---------- */
+export const heroBanners = [
+  {
+    title: "Special Offer",
+    subtitle: "Up to 40% off premium cleaning packages",
+    cta: "Book Now",
+    image:
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&w=600&q=60",
+    color: ["#3b82f6", "#60a5fa"],
+  },
+  {
+    title: "Emergency Repairs",
+    subtitle: "24/7 on-call technicians for urgent fixes",
+    cta: "Call Support",
+    image:
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&w=600&q=60",
+    color: ["#6366f1", "#8b5cf6"],
+  },
+] as const;
+
+export const categories = [
+  { icon: "sparkles-outline", label: "Cleaning" },
+  { icon: "flash-outline", label: "Electrical" },
+  { icon: "construct-outline", label: "Repairs" },
+  { icon: "leaf-outline", label: "Landscaping" },
+  { icon: "thermometer-outline", label: "HVAC" },
+  { icon: "color-palette-outline", label: "Painting" },
+] as const;
+
+export const topProviders = [
+  {
+    id: "1",
+    name: "Jenny Wilson",
+    role: "Cleaner",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&w=200&q=60",
+  },
+  {
+    id: "2",
+    name: "Robert Fox",
+    role: "Electrician",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&w=200&q=60",
+  },
+  {
+    id: "3",
+    name: "Kristin Watson",
+    role: "Plumber",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&w=200&q=60",
+  },
+  {
+    id: "4",
+    name: "Cody Fisher",
+    role: "Painter",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&w=200&q=60",
+  },
+];

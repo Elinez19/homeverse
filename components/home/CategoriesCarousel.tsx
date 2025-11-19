@@ -8,7 +8,7 @@ export type Category = {
 };
 
 type CategoriesCarouselProps = {
-  categories: Category[];
+  categories: Category[] | readonly Category[];
   onCategoryPress?: (label: string) => void;
 };
 
