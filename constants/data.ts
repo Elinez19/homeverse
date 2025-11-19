@@ -296,3 +296,280 @@ export const howItWorksSteps = [
     icon: "star-outline",
   },
 ];
+
+/* ---------- Explore Screen Data ---------- */
+
+// Articles & Tips
+export const homeArticles = [
+  {
+    id: "1",
+    title: "Maximizing Energy Efficiency: Tips for Smart Home Upgrades",
+    readTime: "5 min read",
+    category: "Smart Home",
+    image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&w=800&q=80",
+    color: "#93c5fd",
+    excerpt: "Learn how to reduce energy costs with smart home technology",
+    content: {
+      introduction: "Smart home technology isn't just about convenience—it can also significantly reduce your energy bills. By making strategic upgrades, you can cut your energy costs by up to 30% while enjoying a more comfortable living space. This article explores the most effective smart home upgrades for maximizing energy efficiency.",
+      sections: [
+        {
+          title: "Smart Thermostats: Your First Investment",
+          content: "A programmable smart thermostat is one of the most impactful upgrades you can make. These devices learn your schedule and preferences, automatically adjusting temperatures to optimize comfort and efficiency. Popular options like Nest and Ecobee can save you 10-23% on heating and cooling costs annually."
+        },
+        {
+          title: "LED Smart Bulbs and Lighting Control",
+          content: "Smart LED bulbs use 75% less energy than traditional incandescent bulbs and last 25 times longer. When paired with motion sensors and scheduling, you can ensure lights are only on when needed. Consider installing dimmer switches and smart plugs to further reduce phantom power consumption."
+        },
+        {
+          title: "Energy Monitoring Systems",
+          content: "Real-time energy monitoring systems give you insight into which appliances consume the most power. This data helps you make informed decisions about usage patterns and identify opportunities for savings. Many systems integrate with your smartphone for easy tracking."
+        },
+        {
+          title: "Smart Power Strips and Outlets",
+          content: "Eliminate vampire power drain with smart power strips that automatically cut power to devices in standby mode. Smart outlets can be scheduled or controlled remotely, ensuring appliances aren't consuming energy when not in use."
+        }
+      ]
+    }
+  },
+  {
+    id: "2",
+    title: "Seasonal Home Maintenance: Your Complete Checklist",
+    readTime: "4 min read",
+    category: "Maintenance",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=800&q=80",
+    color: "#fca5a5",
+    excerpt: "Essential tasks to keep your home in top condition year-round",
+    content: {
+      introduction: "Regular seasonal maintenance prevents costly repairs and keeps your home running smoothly throughout the year. Following a structured checklist ensures you don't overlook critical tasks that could lead to major problems down the line.",
+      sections: [
+        {
+          title: "Spring: Renewal and Preparation",
+          content: "Inspect your roof for winter damage, clean gutters and downspouts, service your air conditioning system, check for foundation cracks, and test your sump pump. Spring is also the perfect time to power wash exterior surfaces and reseal your driveway."
+        },
+        {
+          title: "Summer: Outdoor Focus",
+          content: "Maintain your lawn irrigation system, inspect and repair deck or patio surfaces, clean and repair window screens, trim trees and shrubs away from your home, and inspect exterior paint for peeling or damage. Don't forget to clean your dryer vent to prevent fire hazards."
+        },
+        {
+          title: "Fall: Winter Preparation",
+          content: "Clean gutters again after leaves fall, have your heating system serviced, insulate pipes in unheated areas, seal gaps around windows and doors, and reverse ceiling fan direction. This is also the time to drain outdoor faucets and store garden hoses."
+        },
+        {
+          title: "Winter: Indoor Maintenance",
+          content: "Check for ice dams on your roof, test smoke and carbon monoxide detectors, inspect your attic for proper insulation and ventilation, and maintain humidity levels between 30-50%. Keep an eye on your heating system's performance and change filters monthly."
+        }
+      ]
+    }
+  },
+  {
+    id: "3",
+    title: "Choosing the Right Paint Colors for Every Room",
+    readTime: "6 min read",
+    category: "Interior Design",
+    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&w=800&q=80",
+    color: "#c4b5fd",
+    excerpt: "Expert color psychology tips for creating the perfect ambiance",
+    content: {
+      introduction: "Color has a profound psychological impact on our mood and behavior. Choosing the right paint colors for each room can enhance functionality, create desired atmospheres, and even affect how spacious a room feels. Understanding color psychology is key to making informed decisions.",
+      sections: [
+        {
+          title: "Living Room: Warm and Welcoming",
+          content: "Opt for warm neutrals like beige, taupe, or warm gray to create an inviting atmosphere. These colors work well with various decor styles and make the space feel cozy. For accent walls, consider deep blues or rich greens to add depth without overwhelming the space."
+        },
+        {
+          title: "Kitchen: Clean and Energizing",
+          content: "White and light colors make kitchens feel clean and spacious. Soft yellows can stimulate appetite and conversation, while light blues create a calm, fresh environment. Consider using different finishes—semi-gloss for cabinets and matte for walls—to add visual interest."
+        },
+        {
+          title: "Bedroom: Restful and Serene",
+          content: "Cool colors like soft blues, lavenders, and sage greens promote relaxation and better sleep. Avoid bright, energizing colors in bedrooms. If you prefer warmer tones, choose muted versions like dusty rose or warm taupe to maintain a calming environment."
+        },
+        {
+          title: "Home Office: Focus and Productivity",
+          content: "Blues and greens enhance concentration and reduce eye strain. Light gray provides a professional backdrop without being stark. Add pops of yellow or orange in accessories to stimulate creativity and energy when needed."
+        }
+      ]
+    }
+  },
+  {
+    id: "4",
+    title: "Emergency Plumbing: What to Do Before Help Arrives",
+    readTime: "3 min read",
+    category: "Emergency Tips",
+    image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&w=800&q=80",
+    color: "#86efac",
+    excerpt: "Quick actions to minimize damage during plumbing emergencies",
+    content: {
+      introduction: "Plumbing emergencies can cause significant water damage if not addressed quickly. While waiting for professional help, there are several steps you can take to minimize damage and protect your property. Knowing these emergency procedures can save you thousands in repair costs.",
+      sections: [
+        {
+          title: "Shut Off the Water Supply",
+          content: "The first and most critical step is to stop the water flow. Locate your main water shut-off valve—typically found near the water meter or where the main line enters your home. Turn it clockwise to close. For localized issues, use fixture-specific shut-off valves under sinks or behind toilets."
+        },
+        {
+          title: "Contain the Water",
+          content: "Use towels, buckets, and mops to contain water and prevent it from spreading to other areas. Move furniture, electronics, and valuables away from the affected area. If water is dripping from a ceiling, poke a small hole in the bulge to release water in a controlled manner into a bucket."
+        },
+        {
+          title: "Document the Damage",
+          content: "Take photos and videos of the damage for insurance purposes before cleaning up. Document the source of the leak, affected areas, and any damaged belongings. This documentation will be crucial for insurance claims and can help the plumber diagnose the issue more quickly."
+        },
+        {
+          title: "Address Electrical Hazards",
+          content: "If water is near electrical outlets, appliances, or your electrical panel, turn off power to the affected area at your circuit breaker. Never touch electrical devices or outlets with wet hands. If you can't safely access the breaker, evacuate and call emergency services."
+        }
+      ]
+    }
+  },
+  {
+    id: "5",
+    title: "Landscaping Trends: Transform Your Outdoor Space",
+    readTime: "7 min read",
+    category: "Outdoor",
+    image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&w=800&q=80",
+    color: "#fde68a",
+    excerpt: "Modern landscaping ideas to boost your home's curb appeal",
+    content: {
+      introduction: "Your outdoor space is an extension of your home and a reflection of your personal style. Modern landscaping trends focus on sustainability, low maintenance, and creating functional outdoor living areas. These trends can significantly increase your property value while reducing water consumption and upkeep time.",
+      sections: [
+        {
+          title: "Native Plant Gardens",
+          content: "Native plants are adapted to your local climate, requiring less water, fertilizer, and maintenance than exotic species. They also support local wildlife and pollinators. Create layered plantings with native grasses, perennials, and shrubs for year-round interest and minimal upkeep."
+        },
+        {
+          title: "Outdoor Living Spaces",
+          content: "Extend your living area outdoors with defined spaces for dining, lounging, and entertaining. Use pavers or composite decking to create distinct zones. Add comfortable seating, outdoor kitchens, and fire features to make these spaces functional year-round."
+        },
+        {
+          title: "Sustainable Water Features",
+          content: "Modern water features incorporate recirculating systems and rainwater harvesting. Consider pondless waterfalls, bubbling rocks, or rain gardens that manage stormwater while adding visual interest. These features attract birds and beneficial insects while using minimal water."
+        },
+        {
+          title: "Smart Irrigation Systems",
+          content: "Install weather-based irrigation controllers that adjust watering schedules based on rainfall and temperature. Drip irrigation delivers water directly to plant roots, reducing waste by up to 50%. Zone your irrigation to group plants with similar water needs together."
+        }
+      ]
+    }
+  },
+];
+
+// Trending Services
+export const trendingServices = [
+  {
+    id: "trend-1",
+    title: "Smart Lock Installation",
+    category: "Smart Home",
+    price: "From $180",
+    rating: 4.9,
+    reviews: 342,
+    image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&w=600&q=60",
+    trending: true,
+    badge: "🔥 Hot",
+  },
+  {
+    id: "trend-2",
+    title: "Solar Panel Installation",
+    category: "Energy",
+    price: "From $2,500",
+    rating: 4.8,
+    reviews: 189,
+    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&w=600&q=60",
+    trending: true,
+    badge: "⚡ Popular",
+  },
+  {
+    id: "trend-3",
+    title: "Home Theater Setup",
+    category: "Entertainment",
+    price: "From $450",
+    rating: 4.7,
+    reviews: 256,
+    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&w=600&q=60",
+    trending: true,
+    badge: "⭐ New",
+  },
+];
+
+// Service Categories with Images
+export const exploreCategoriesWithImages = [
+  {
+    id: "cat-1",
+    name: "Cleaning Services",
+    serviceCount: 24,
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=600&q=60",
+    icon: "sparkles-outline",
+    color: "#3b82f6",
+  },
+  {
+    id: "cat-2",
+    name: "Electrical Work",
+    serviceCount: 18,
+    image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&w=600&q=60",
+    icon: "flash-outline",
+    color: "#f59e0b",
+  },
+  {
+    id: "cat-3",
+    name: "Plumbing",
+    serviceCount: 21,
+    image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&w=600&q=60",
+    icon: "water-outline",
+    color: "#06b6d4",
+  },
+  {
+    id: "cat-4",
+    name: "HVAC Services",
+    serviceCount: 15,
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=600&q=60",
+    icon: "thermometer-outline",
+    color: "#8b5cf6",
+  },
+  {
+    id: "cat-5",
+    name: "Painting",
+    serviceCount: 12,
+    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&w=600&q=60",
+    icon: "color-palette-outline",
+    color: "#ec4899",
+  },
+  {
+    id: "cat-6",
+    name: "Landscaping",
+    serviceCount: 19,
+    image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&w=600&q=60",
+    icon: "leaf-outline",
+    color: "#10b981",
+  },
+];
+
+// Expert Tips (Quick Tips Section)
+export const expertTips = [
+  {
+    id: "tip-1",
+    title: "Save on Energy Bills",
+    description: "Install a programmable thermostat to reduce heating and cooling costs by up to 30%",
+    icon: "bulb-outline",
+    color: "#fbbf24",
+  },
+  {
+    id: "tip-2",
+    title: "Prevent Water Damage",
+    description: "Check your water heater annually and replace it every 8-12 years",
+    icon: "water-outline",
+    color: "#3b82f6",
+  },
+  {
+    id: "tip-3",
+    title: "Boost Home Value",
+    description: "Fresh paint and updated fixtures can increase your home's value by 5-10%",
+    icon: "trending-up-outline",
+    color: "#10b981",
+  },
+  {
+    id: "tip-4",
+    title: "Safety First",
+    description: "Test smoke detectors monthly and replace batteries twice a year",
+    icon: "shield-checkmark-outline",
+    color: "#ef4444",
+  },
+];
