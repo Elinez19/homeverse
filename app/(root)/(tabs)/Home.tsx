@@ -66,8 +66,9 @@ export default function HomeScreen() {
   const menuItems = [
     { icon: "home-outline", label: "Home", route: "/" },
     { icon: "grid-outline", label: "All Services", route: "/all-services" },
+    { icon: "cart-outline", label: "My Cart", route: "/cart" },
     { icon: "calendar-outline", label: "My Bookings", route: "/bookings" },
-    { icon: "heart-outline", label: "Favorites", route: "/favorites" },
+    { icon: "heart-outline", label: "Favorites", route: "/Favorites" },
     { icon: "person-outline", label: "Profile", route: "/profile" },
     { icon: "chatbubble-outline", label: "Messages", route: "/messages" },
     { icon: "help-circle-outline", label: "Help & Support", route: "/support" },
@@ -103,6 +104,7 @@ export default function HomeScreen() {
               avatarUrl="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&w=200&q=60"
               onMenuPress={() => setSidebarVisible(true)}
               onNotificationPress={() => Alert.alert("Notifications", "No new notifications")}
+              onCartPress={() => router.push("/(root)/cart")}
             />
           </View>
 

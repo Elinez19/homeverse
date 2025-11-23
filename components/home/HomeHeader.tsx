@@ -5,12 +5,14 @@ type HomeHeaderProps = {
   avatarUrl: string;
   onMenuPress?: () => void;
   onNotificationPress?: () => void;
+  onCartPress?: () => void;
 };
 
 export function HomeHeader({
   avatarUrl,
   onMenuPress,
   onNotificationPress,
+  onCartPress,
 }: HomeHeaderProps) {
   return (
     <View className="flex-row items-center justify-between">
@@ -33,6 +35,13 @@ export function HomeHeader({
       </View>
 
       <View className="flex-row items-center gap-3">
+        <TouchableOpacity
+          onPress={onCartPress}
+          className="w-11 h-11 rounded-2xl bg-white/80 items-center justify-center"
+          activeOpacity={0.8}
+        >
+          <Ionicons name="cart-outline" size={20} color="#0f172a" />
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={onNotificationPress}
           className="w-11 h-11 rounded-2xl bg-white/80 items-center justify-center"

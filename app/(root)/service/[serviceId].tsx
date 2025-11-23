@@ -44,6 +44,7 @@ export default function Page() {
   );
 
   const handleBookNow = () => {
+    console.log("Opening booking modal");
     setShowBooking(true);
   };
 

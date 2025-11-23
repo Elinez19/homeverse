@@ -717,3 +717,57 @@ export const profileMenu = [
     ],
   },
 ];
+
+/* ---------- Cart & Favorites Data ---------- */
+export const cartItems = [
+  {
+    id: "1",
+    serviceId: "1",
+    title: "Emergency Plumbing",
+    price: 120,
+    image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&w=600&q=60",
+    category: "Plumbing",
+    date: "2023-11-25",
+    time: "10:00 AM",
+  },
+  {
+    id: "2",
+    serviceId: "2",
+    title: "Professional Painting",
+    price: 300,
+    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&w=600&q=60",
+    category: "Painting",
+    date: "2023-11-28",
+    time: "02:00 PM",
+  }
+];
+
+export const favoriteItems = [
+  {
+    id: "1",
+    title: "Emergency Plumbing",
+    price: "From $120",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&w=600&q=60",
+    category: "Plumbing",
+    reviews: 128,
+  },
+  {
+    id: "3",
+    title: "HVAC Maintenance",
+    price: "From $200",
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&w=600&q=60",
+    category: "HVAC",
+    reviews: 85,
+  },
+   {
+    id: "trend-1",
+    title: "Smart Lock Installation",
+    category: "Smart Home",
+    price: "From $180",
+    rating: 4.9,
+    reviews: 342,
+    image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&w=600&q=60",
+  },
+];
