@@ -1,8 +1,11 @@
+import ConfirmationModal from "@/components/modals/ConfirmationModal";
+import SuccessModal from "@/components/modals/SuccessModal";
 import { chatList, gradientColors } from "@/constants/data";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
   Image,
   ScrollView,
@@ -15,6 +18,20 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ChatScreen() {
   const router = useRouter();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleClearAll = () => {
+    setShowClearConfirm(true);
+  };
+
+  const handleClearConfirm = () => {
+    setShowClearConfirm(false);
+    // Mock clear logic
+    setTimeout(() => {
+      setShowSuccess(true);
+    }, 500);
+  };
 
   return (
     <View className="flex-1">
@@ -51,13 +68,22 @@ export default function ChatScreen() {
                   Coordinate with pros in one secure place.
                 </Text>
               </View>
-              <TouchableOpacity
-                className="flex-row items-center bg-white/80 rounded-2xl px-3 py-2"
-                activeOpacity={0.8}
-              >
-                <Ionicons name="create-outline" size={18} color="#0f172a" />
-                <Text className="text-slate-900 font-semibold ml-2">New</Text>
-              </TouchableOpacity>
+              <View className="flex-row gap-2">
+                <TouchableOpacity
+                  className="flex-row items-center bg-white/80 rounded-2xl px-3 py-2"
+                  activeOpacity={0.8}
+                  onPress={handleClearAll}
+                >
+                  <Ionicons name="trash-outline" size={18} color="#ef4444" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="flex-row items-center bg-white/80 rounded-2xl px-3 py-2"
+                  activeOpacity={0.8}
+                >
+                  <Ionicons name="create-outline" size={18} color="#0f172a" />
+                  <Text className="text-slate-900 font-semibold ml-2">New</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
             <BlurView intensity={30} tint="light" className="rounded-3xl">
@@ -134,6 +160,26 @@ export default function ChatScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      {/* Modals */}
+      <ConfirmationModal
+        isVisible={showClearConfirm}
+        onConfirm={handleClearConfirm}
+        onCancel={() => setShowClearConfirm(false)}
+        title="Clear All Messages"
+        message="Are you sure you want to delete all conversations? This action cannot be undone."
+        confirmText="Delete All"
+        cancelText="Cancel"
+        type="danger"
+      />
+
+      <SuccessModal
+        isVisible={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        title="Messages Cleared"
+        message="All your conversations have been successfully deleted."
+        buttonText="OK"
+      />
     </View>
   );
 }

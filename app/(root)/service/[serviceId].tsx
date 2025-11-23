@@ -1,3 +1,6 @@
+import BookingModal from "@/components/modals/BookingModal";
+import PaymentModal from "@/components/modals/PaymentModal";
+import SuccessModal from "@/components/modals/SuccessModal";
 import { ServiceAboutSection } from "@/components/service/ServiceAboutSection";
 import { ServiceActionsBar } from "@/components/service/ServiceActionsBar";
 import { ServiceDetailHero } from "@/components/service/ServiceDetailHero";
@@ -11,7 +14,6 @@ import { getServiceDetail } from "@/constants/services";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import {
-  Alert,
   Image,
   ScrollView,
   StatusBar,
@@ -25,12 +27,36 @@ export default function Page() {
   const { serviceId } = useLocalSearchParams<{ serviceId?: string }>();
   const [activeTab, setActiveTab] = useState<ServiceInfoTab>("About");
 
+  // Modal States
+  const [showBooking, setShowBooking] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Booking Data
+  const [bookingDetails, setBookingDetails] = useState<{
+    date: string;
+    time: string;
+  } | null>(null);
+
   const service = useMemo(
     () => (serviceId ? getServiceDetail(serviceId as string) : undefined),
     [serviceId]
   );
-  const handleBookNow = () =>
-    Alert.alert("Booking", "Booking flow will be available soon.");
+
+  const handleBookNow = () => {
+    setShowBooking(true);
+  };
+
+  const handleBookingConfirm = (date: string, time: string) => {
+    setBookingDetails({ date, time });
+    setShowBooking(false);
+    setTimeout(() => setShowPayment(true), 500);
+  };
+
+  const handlePaymentConfirm = () => {
+    setShowPayment(false);
+    setTimeout(() => setShowSuccess(true), 500);
+  };
 
   if (!service) {
     return (
@@ -62,9 +88,7 @@ export default function Page() {
           image={service.image}
           gallery={service.gallery}
           onBackPress={() => router.back()}
-          onFavoritePress={() =>
-            Alert.alert("Saved", "Added to your favourites.")
-          }
+          onFavoritePress={() => {}}
         />
         <View className="px-6 pb-16">
           <ServiceInfoTabs
@@ -134,6 +158,32 @@ export default function Page() {
           />
         </View>
       </ScrollView>
+
+      {/* Modals */}
+      <BookingModal
+        isVisible={showBooking}
+        onClose={() => setShowBooking(false)}
+        onConfirm={handleBookingConfirm}
+        serviceTitle={service.title}
+        servicePrice={service.priceLabel}
+        serviceImage={{ uri: service.image }}
+      />
+
+      <PaymentModal
+        isVisible={showPayment}
+        onClose={() => setShowPayment(false)}
+        onPay={handlePaymentConfirm}
+        amount={service.totalPrice.toString()}
+      />
+
+      <SuccessModal
+        isVisible={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        title="Booking Confirmed!"
+        message={`Your appointment for ${service.title} has been successfully booked for ${bookingDetails?.date} at ${bookingDetails?.time}.`}
+        buttonText="View Bookings"
+        navigateTo="/(tabs)/Chat" // Redirecting to Chat as a placeholder for Bookings tab
+      />
     </View>
   );
 }

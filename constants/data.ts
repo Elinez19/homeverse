@@ -672,3 +672,48 @@ export const chatMessages = {
     },
   ],
 };
+
+/* ---------- Profile Data ---------- */
+export const userProfile = {
+  name: "Olivia James",
+  email: "olivia@homeverse.app",
+  phone: "+1 (555) 123-4567",
+  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&w=200&q=80",
+  location: "San Francisco, CA",
+  memberSince: "August 2023",
+  membership: "Premium Member",
+};
+
+export const profileStats = [
+  { label: "Bookings", value: "12" },
+  { label: "Reviews", value: "5" },
+  { label: "Favorites", value: "8" },
+];
+
+export const profileMenu = [
+  {
+    title: "Account",
+    items: [
+      { icon: "person-outline", label: "Personal Information", route: "/profile/info" },
+      { icon: "card-outline", label: "Payment Methods", route: "/profile/payments" },
+      { icon: "location-outline", label: "Addresses", route: "/profile/addresses" },
+      { icon: "notifications-outline", label: "Notifications", route: "/profile/notifications" },
+    ],
+  },
+  {
+    title: "General",
+    items: [
+      { icon: "settings-outline", label: "Settings", route: "/profile/settings" },
+      { icon: "language-outline", label: "Language", value: "English (US)", route: "/profile/language" },
+      { icon: "moon-outline", label: "Dark Mode", isSwitch: true, route: null },
+    ],
+  },
+  {
+    title: "Support",
+    items: [
+      { icon: "help-circle-outline", label: "Help Center", route: "/profile/help" },
+      { icon: "chatbubble-ellipses-outline", label: "Contact Support", route: "/profile/support" },
+      { icon: "document-text-outline", label: "Terms & Privacy", route: "/profile/legal" },
+    ],
+  },
+];
