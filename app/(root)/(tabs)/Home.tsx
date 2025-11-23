@@ -21,14 +21,16 @@ import {
   topProviders
 } from "@/constants/data";
 import { services } from "@/constants/services";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ScrollView, StatusBar, View } from "react-native";
+import { Alert, Image, Modal, Pressable, ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sidebarVisible, setSidebarVisible] = useState(false);
   const router = useRouter();
 
   // Filter services based on search query
@@ -61,6 +63,16 @@ export default function HomeScreen() {
     return category.label.toLowerCase().includes(query);
   });
 
+  const menuItems = [
+    { icon: "home-outline", label: "Home", route: "/" },
+    { icon: "grid-outline", label: "All Services", route: "/all-services" },
+    { icon: "calendar-outline", label: "My Bookings", route: "/bookings" },
+    { icon: "heart-outline", label: "Favorites", route: "/favorites" },
+    { icon: "person-outline", label: "Profile", route: "/profile" },
+    { icon: "chatbubble-outline", label: "Messages", route: "/messages" },
+    { icon: "help-circle-outline", label: "Help & Support", route: "/support" },
+  ];
+
   return (
     <View className="flex-1">
       <StatusBar
@@ -88,8 +100,9 @@ export default function HomeScreen() {
         >
           <View className="px-6 pt-6">
             <HomeHeader
-              location="New York, USA"
               avatarUrl="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&w=200&q=60"
+              onMenuPress={() => setSidebarVisible(true)}
+              onNotificationPress={() => Alert.alert("Notifications", "No new notifications")}
             />
           </View>
 
@@ -143,7 +156,12 @@ export default function HomeScreen() {
                     price={service.price}
                     rating={service.rating}
                     icon={service.icon as any}
-                    onPress={() => router.push("/popular-services")}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/service/[serviceId]",
+                        params: { serviceId: service.id },
+                      })
+                    }
                   />
                 ))}
               </View>
@@ -297,6 +315,119 @@ export default function HomeScreen() {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      {/* Sidebar Modal */}
+      <Modal
+        visible={sidebarVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setSidebarVisible(false)}
+      >
+        <View className="flex-1 flex-row">
+          {/* Overlay */}
+          <Pressable
+            className="flex-1 bg-black/50"
+            onPress={() => setSidebarVisible(false)}
+          />
+          
+          {/* Sidebar Content */}
+          <View className="w-80 bg-white h-full">
+            <SafeAreaView className="flex-1">
+              {/* Header */}
+              <View className="px-6 py-6 border-b border-slate-100">
+                <View className="flex-row items-center justify-between mb-4">
+                  <Text className="text-2xl font-bold text-slate-900">Menu</Text>
+                  <Pressable
+                    onPress={() => setSidebarVisible(false)}
+                    className="w-10 h-10 rounded-full bg-slate-100 items-center justify-center"
+                  >
+                    <Ionicons name="close" size={24} color="#1e293b" />
+                  </Pressable>
+                </View>
+                
+                {/* Profile Section */}
+                <View className="flex-row items-center mt-2">
+                  <Image
+                    source={{ uri: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&w=200&q=60" }}
+                    className="w-16 h-16 rounded-2xl"
+                  />
+                  <View className="ml-3 flex-1">
+                    <Text className="text-lg font-bold text-slate-900">John Doe</Text>
+                    <Text className="text-sm text-slate-500">john.doe@email.com</Text>
+                  </View>
+                </View>
+              </View>
+
+              {/* Menu Items */}
+              <ScrollView className="flex-1 px-3 py-4">
+                {menuItems.map((item, index) => (
+                  <Pressable
+                    key={index}
+                    onPress={() => {
+                      setSidebarVisible(false);
+                      if (item.route !== "/") {
+                        router.push(item.route as any);
+                      }
+                    }}
+                    className="flex-row items-center px-4 py-4 rounded-2xl mb-2 active:bg-slate-50"
+                  >
+                    <View className="w-10 h-10 rounded-xl bg-slate-100 items-center justify-center">
+                      <Ionicons name={item.icon as any} size={22} color="#475569" />
+                    </View>
+                    <Text className="ml-4 text-base font-semibold text-slate-700">
+                      {item.label}
+                    </Text>
+                  </Pressable>
+                ))}
+
+                {/* Divider */}
+                <View className="h-px bg-slate-200 my-4" />
+
+                {/* Settings & Logout */}
+                <Pressable
+                  onPress={() => {
+                    setSidebarVisible(false);
+                    Alert.alert("Settings", "Settings screen coming soon");
+                  }}
+                  className="flex-row items-center px-4 py-4 rounded-2xl mb-2 active:bg-slate-50"
+                >
+                  <View className="w-10 h-10 rounded-xl bg-slate-100 items-center justify-center">
+                    <Ionicons name="settings-outline" size={22} color="#475569" />
+                  </View>
+                  <Text className="ml-4 text-base font-semibold text-slate-700">
+                    Settings
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => {
+                    setSidebarVisible(false);
+                    Alert.alert("Logout", "Are you sure you want to logout?", [
+                      { text: "Cancel", style: "cancel" },
+                      { text: "Logout", style: "destructive" }
+                    ]);
+                  }}
+                  className="flex-row items-center px-4 py-4 rounded-2xl active:bg-red-50"
+                >
+                  <View className="w-10 h-10 rounded-xl bg-red-50 items-center justify-center">
+                    <Ionicons name="log-out-outline" size={22} color="#ef4444" />
+                  </View>
+                  <Text className="ml-4 text-base font-semibold text-red-600">
+                    Logout
+                  </Text>
+                </Pressable>
+              </ScrollView>
+
+              {/* Footer */}
+              <View className="px-6 py-4 border-t border-slate-100">
+                <Text className="text-xs text-slate-400 text-center">
+                  HomeVerse v1.0.0
+                </Text>
+              </View>
+            </SafeAreaView>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

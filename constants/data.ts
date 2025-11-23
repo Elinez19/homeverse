@@ -573,3 +573,102 @@ export const expertTips = [
     color: "#ef4444",
   },
 ];
+
+/* ---------- Chat Data ---------- */
+export const chatList = [
+  {
+    id: "1",
+    name: "Jenny Wilson",
+    role: "Cleaner",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&w=200&q=60",
+    lastMessage: "I'll be there in about 10 minutes.",
+    time: "10:30 AM",
+    unread: 2,
+    online: true,
+  },
+  {
+    id: "2",
+    name: "Robert Fox",
+    role: "Electrician",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&w=200&q=60",
+    lastMessage: "Can you send me a picture of the panel?",
+    time: "Yesterday",
+    unread: 0,
+    online: false,
+  },
+  {
+    id: "3",
+    name: "Kristin Watson",
+    role: "Plumber",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&w=200&q=60",
+    lastMessage: "The parts have arrived, we can schedule for tomorrow.",
+    time: "Yesterday",
+    unread: 0,
+    online: true,
+  },
+  {
+    id: "4",
+    name: "Cody Fisher",
+    role: "Painter",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&w=200&q=60",
+    lastMessage: "Thanks for the review!",
+    time: "Tue",
+    unread: 0,
+    online: false,
+  },
+];
+
+export const chatMessages = {
+  "1": [
+    {
+      id: "m1",
+      text: "Hi Jenny, are we still on for today?",
+      sender: "user",
+      time: "10:00 AM",
+    },
+    {
+      id: "m2",
+      text: "Yes! I'm just finishing up another job nearby.",
+      sender: "other",
+      time: "10:05 AM",
+    },
+    {
+      id: "m3",
+      text: "Great, see you soon.",
+      sender: "user",
+      time: "10:06 AM",
+    },
+    {
+      id: "m4",
+      text: "I'll be there in about 10 minutes.",
+      sender: "other",
+      time: "10:30 AM",
+    },
+  ],
+  "2": [
+    {
+      id: "m1",
+      text: "Hello, I have an issue with my circuit breaker.",
+      sender: "user",
+      time: "Yesterday, 2:00 PM",
+    },
+    {
+      id: "m2",
+      text: "Hi! I can help with that. Is it tripping frequently?",
+      sender: "other",
+      time: "Yesterday, 2:15 PM",
+    },
+    {
+      id: "m3",
+      text: "Yes, every time I turn on the AC.",
+      sender: "user",
+      time: "Yesterday, 2:20 PM",
+    },
+    {
+      id: "m4",
+      text: "Can you send me a picture of the panel?",
+      sender: "other",
+      time: "Yesterday, 2:25 PM",
+    },
+  ],
+};

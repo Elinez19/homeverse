@@ -1,8 +1,10 @@
-import { gradientColors } from "@/constants/data";
+import { chatList, gradientColors } from "@/constants/data";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import {
+  Image,
   ScrollView,
   StatusBar,
   Text,
@@ -11,13 +13,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const conversations = [
-  { name: "Sparkle Crew", preview: "We're en route and arrive in 15 mins." },
-  { name: "Fix-It Pros", preview: "Please share a photo of the faucet leak." },
-  { name: "Outdoor Oasis", preview: "Quote updated with seasonal planting." },
-] as const;
-
 export default function ChatScreen() {
+  const router = useRouter();
+
   return (
     <View className="flex-1">
       <StatusBar
@@ -79,9 +77,9 @@ export default function ChatScreen() {
             </BlurView>
 
             <View className="space-y-4">
-              {conversations.map((chat) => (
+              {chatList.map((chat) => (
                 <BlurView
-                  key={chat.name}
+                  key={chat.id}
                   intensity={35}
                   tint="light"
                   className="rounded-3xl"
@@ -89,25 +87,46 @@ export default function ChatScreen() {
                   <TouchableOpacity
                     className="rounded-3xl bg-white/70 px-5 py-4 flex-row items-center"
                     activeOpacity={0.8}
+                    onPress={() => router.push({ pathname: "/(root)/chat/[id]", params: { id: chat.id } })}
                   >
-                    <View className="w-12 h-12 rounded-2xl bg-slate-900/90 items-center justify-center mr-4">
-                      <Text className="text-white font-semibold text-base">
-                        {chat.name.slice(0, 2)}
-                      </Text>
+                    <View className="relative mr-4">
+                      <Image
+                        source={{ uri: chat.avatar }}
+                        className="w-14 h-14 rounded-2xl bg-slate-200"
+                      />
+                      {chat.online && (
+                        <View className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
+                      )}
                     </View>
+                    
                     <View className="flex-1">
-                      <Text className="text-slate-900 text-lg font-semibold">
-                        {chat.name}
+                      <View className="flex-row items-center justify-between mb-1">
+                        <Text className="text-slate-900 text-lg font-semibold">
+                          {chat.name}
+                        </Text>
+                        <Text className="text-slate-500 text-xs font-medium">
+                          {chat.time}
+                        </Text>
+                      </View>
+                      <Text className="text-slate-500 text-xs mb-1 font-medium bg-slate-100 self-start px-2 py-0.5 rounded-md overflow-hidden">
+                        {chat.role}
                       </Text>
-                      <Text className="text-slate-600 text-sm" numberOfLines={1}>
-                        {chat.preview}
-                      </Text>
+                      <View className="flex-row items-center justify-between mt-1">
+                        <Text 
+                          className={`text-sm flex-1 mr-2 ${chat.unread > 0 ? 'text-slate-900 font-semibold' : 'text-slate-600'}`} 
+                          numberOfLines={1}
+                        >
+                          {chat.lastMessage}
+                        </Text>
+                        {chat.unread > 0 && (
+                          <View className="bg-blue-500 px-2 py-0.5 rounded-full min-w-[20px] items-center justify-center">
+                            <Text className="text-white text-xs font-bold">
+                              {chat.unread}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
                     </View>
-                    <Ionicons
-                      name="chevron-forward"
-                      size={18}
-                      color="rgba(15,23,42,0.7)"
-                    />
                   </TouchableOpacity>
                 </BlurView>
               ))}

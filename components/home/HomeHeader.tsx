@@ -2,41 +2,35 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 type HomeHeaderProps = {
-  location: string;
   avatarUrl: string;
-  onLocationPress?: () => void;
+  onMenuPress?: () => void;
   onNotificationPress?: () => void;
 };
 
 export function HomeHeader({
-  location,
   avatarUrl,
-  onLocationPress,
+  onMenuPress,
   onNotificationPress,
 }: HomeHeaderProps) {
   return (
     <View className="flex-row items-center justify-between">
-      <TouchableOpacity
-        onPress={onLocationPress}
-        activeOpacity={0.8}
-        className="mr-4"
-      >
-        <Text className="text-xs uppercase tracking-widest text-slate-500">
-          Location
-        </Text>
-        <View className="flex-row items-center mt-1">
-          <Ionicons name="location-outline" size={16} color="#0f172a" />
-          <Text className="text-base font-semibold text-slate-900 ml-1">
-            {location}
+      <View className="flex-row items-center gap-3">
+        <TouchableOpacity
+          onPress={onMenuPress}
+          className="w-11 h-11 rounded-2xl bg-white/80 items-center justify-center"
+          activeOpacity={0.8}
+        >
+          <Ionicons name="menu-outline" size={24} color="#0f172a" />
+        </TouchableOpacity>
+        <View>
+          <Text className="text-xs uppercase tracking-widest text-slate-500">
+            Welcome Back
           </Text>
-          <Ionicons
-            name="chevron-down"
-            size={16}
-            color="rgba(15,23,42,0.7)"
-            style={{ marginLeft: 2 }}
-          />
+          <Text className="text-base font-semibold text-slate-900 mt-0.5">
+            HomeVerse
+          </Text>
         </View>
-      </TouchableOpacity>
+      </View>
 
       <View className="flex-row items-center gap-3">
         <TouchableOpacity
