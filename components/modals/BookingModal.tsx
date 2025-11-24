@@ -2,12 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import React, { useState } from "react";
 import {
-    Image,
-    Modal,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface BookingModalProps {
@@ -84,23 +84,23 @@ const BookingModal: React.FC<BookingModalProps> = ({
               className="w-16 h-16 rounded-xl bg-gray-200"
             />
             <View className="ml-4 flex-1">
-              <Text className="text-lg font-bold text-gray-900">
+              <Text className="text-lg font-bold text-slate-900">
                 {serviceTitle}
               </Text>
-              <Text className="text-primary-500 font-semibold text-base">
+              <Text className="text-slate-500 font-semibold text-base">
                 {servicePrice}
               </Text>
             </View>
             <TouchableOpacity
               onPress={onClose}
-              className="w-8 h-8 bg-gray-100 rounded-full justify-center items-center"
+              className="w-8 h-8 bg-slate-400 rounded-full justify-center items-center"
             >
               <Ionicons name="close" size={20} color="#374151" />
             </TouchableOpacity>
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Text className="text-lg font-bold text-gray-900 mb-4">
+            <Text className="text-lg font-bold text-slate-900 mb-4">
               Select Date
             </Text>
             <ScrollView
@@ -114,7 +114,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   onPress={() => setSelectedDate(item.fullDate)}
                   className={`mr-3 w-16 h-20 rounded-2xl justify-center items-center border ${
                     selectedDate === item.fullDate
-                      ? "bg-primary-500 border-primary-500"
+                      ? "bg-slate-500 border-slate-500"
                       : "bg-white border-gray-200"
                   }`}
                 >
@@ -122,7 +122,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                     className={`text-sm font-medium mb-1 ${
                       selectedDate === item.fullDate
                         ? "text-white"
-                        : "text-gray-500"
+                        : "text-slate-500"
                     }`}
                   >
                     {item.day}
@@ -140,7 +140,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
               ))}
             </ScrollView>
 
-            <Text className="text-lg font-bold text-gray-900 mb-4">
+            <Text className="text-lg font-bold text-slate-900 mb-4">
               Select Time
             </Text>
             <View className="flex-row flex-wrap gap-3 mb-8">
@@ -150,13 +150,13 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   onPress={() => setSelectedTime(time)}
                   className={`px-4 py-3 rounded-xl border ${
                     selectedTime === time
-                      ? "bg-primary-500 border-primary-500"
+                      ? "bg-slate-500 border-slate-500"
                       : "bg-white border-gray-200"
                   } w-[30%] items-center`}
                 >
                   <Text
                     className={`font-medium ${
-                      selectedTime === time ? "text-white" : "text-gray-700"
+                      selectedTime === time ? "text-white" : "text-slate-700"
                     }`}
                   >
                     {time}
@@ -172,7 +172,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
               disabled={!selectedDate || !selectedTime}
               className={`w-full py-4 rounded-xl items-center shadow-lg ${
                 selectedDate && selectedTime
-                  ? "bg-primary-500 shadow-primary-500/30"
+                  ? "bg-slate-500 shadow-slate-500/30"
                   : "bg-gray-300"
               }`}
             >

@@ -2,11 +2,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import React, { useState } from "react";
 import {
-    Modal,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 
 interface PaymentModalProps {
@@ -71,12 +71,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
           <View className="w-12 h-1 bg-gray-300 rounded-full self-center mb-6" />
 
           <View className="flex-row items-center justify-between mb-6">
-            <Text className="text-xl font-bold text-gray-900">
+            <Text className="text-xl font-bold text-slate-900">
               Payment Method
             </Text>
             <TouchableOpacity
               onPress={onClose}
-              className="w-8 h-8 bg-gray-100 rounded-full justify-center items-center"
+              className="w-8 h-8 bg-slate-400 rounded-full justify-center items-center"
             >
               <Ionicons name="close" size={20} color="#374151" />
             </TouchableOpacity>
@@ -107,17 +107,17 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
                   />
                 </View>
                 <View className="ml-4 flex-1">
-                  <Text className="text-base font-bold text-gray-900">
+                  <Text className="text-base font-bold text-slate-900">
                     {method.name}
                   </Text>
-                  <Text className="text-sm text-gray-500">
+                  <Text className="text-sm text-slate-500">
                     {method.subtitle}
                   </Text>
                 </View>
                 <View
                   className={`w-6 h-6 rounded-full border-2 justify-center items-center ${
                     selectedMethod === method.id
-                      ? "border-primary-500 bg-primary-500"
+                      ? "border-slate-500 bg-slate-500"
                       : "border-gray-300"
                   }`}
                 >
@@ -131,12 +131,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 
           <View className="pt-4 border-t border-gray-100">
             <View className="flex-row justify-between items-center mb-4">
-              <Text className="text-gray-500 text-base">Total Amount</Text>
-              <Text className="text-xl font-bold text-gray-900">{amount}</Text>
+              <Text className="text-slate-500 text-base">Total Amount</Text>
+              <Text className="text-xl font-bold text-slate-900">{amount}</Text>
             </View>
             <TouchableOpacity
               onPress={onPay}
-              className="w-full py-4 rounded-xl items-center bg-primary-500 shadow-lg shadow-primary-500/30"
+              className="w-full py-4 rounded-xl items-center bg-slate-500 shadow-lg shadow-slate-500/30"
             >
               <Text className="text-white font-bold text-lg">Pay Now</Text>
             </TouchableOpacity>

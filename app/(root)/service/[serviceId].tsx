@@ -183,7 +183,7 @@ export default function Page() {
         title="Booking Confirmed!"
         message={`Your appointment for ${service.title} has been successfully booked for ${bookingDetails?.date} at ${bookingDetails?.time}.`}
         buttonText="View Bookings"
-        navigateTo="/(tabs)/Chat" // Redirecting to Chat as a placeholder for Bookings tab
+        navigateTo="/(tabs)/Chat" 
       />
     </View>
   );

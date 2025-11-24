@@ -83,20 +83,20 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             <Ionicons name={getIcon()} size={32} className={getColor()} color={type === 'success' ? '#22c55e' : type === 'danger' ? '#ef4444' : type === 'warning' ? '#eab308' : '#3b82f6'} />
           </View>
           
-          <Text className="text-xl font-bold text-gray-900 text-center mb-2">
+          <Text className="text-xl font-bold text-slate-900 text-center mb-2">
             {title}
           </Text>
           
-          <Text className="text-gray-500 text-center mb-8 leading-5">
+          <Text className="text-slate-500 text-center mb-8 leading-5">
             {message}
           </Text>
 
           <View className="flex-row w-full space-x-3 gap-3">
             <TouchableOpacity
               onPress={onCancel}
-              className="flex-1 py-3.5 rounded-xl bg-gray-100 border border-gray-200"
+              className="flex-1 py-3.5 rounded-xl bg-slate-300 border border-gray-200"
             >
-              <Text className="text-gray-700 font-semibold text-center">
+              <Text className="text-slate-700 font-semibold text-center">
                 {cancelText}
               </Text>
             </TouchableOpacity>
@@ -105,7 +105,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
               onPress={onConfirm}
               className={`flex-1 py-3.5 rounded-xl ${getBgColor()} shadow-lg shadow-${type === 'success' ? 'green' : type === 'danger' ? 'red' : 'blue'}-500/30`}
             >
-              <Text className="text-white font-semibold text-center">
+              <Text className="text-slate-100 font-semibold text-center">
                 {confirmText}
               </Text>
             </TouchableOpacity>

@@ -2,14 +2,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import React, { useEffect, useState } from "react";
 import {
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface EditProfileModalProps {
@@ -68,12 +68,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <View className="w-12 h-1 bg-gray-300 rounded-full self-center mb-6" />
 
             <View className="flex-row items-center justify-between mb-6">
-              <Text className="text-xl font-bold text-gray-900">
+              <Text className="text-xl font-bold text-slate-900">
                 Edit Profile
               </Text>
               <TouchableOpacity
                 onPress={onClose}
-                className="w-8 h-8 bg-gray-100 rounded-full justify-center items-center"
+                className="w-8 h-8 bg-slate-400 rounded-full justify-center items-center"
               >
                 <Ionicons name="close" size={20} color="#374151" />
               </TouchableOpacity>
@@ -82,7 +82,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <ScrollView showsVerticalScrollIndicator={false}>
               <View className="space-y-4 gap-4">
                 <View>
-                  <Text className="text-sm font-medium text-gray-700 mb-2">
+                  <Text className="text-sm font-medium text-slate-700 mb-2">
                     Full Name
                   </Text>
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
@@ -97,7 +97,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 </View>
 
                 <View>
-                  <Text className="text-sm font-medium text-gray-700 mb-2">
+                  <Text className="text-sm font-medium text-slate-700 mb-2">
                     Email Address
                   </Text>
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
@@ -114,13 +114,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 </View>
 
                 <View>
-                  <Text className="text-sm font-medium text-gray-700 mb-2">
+                  <Text className="text-sm font-medium text-slate-700 mb-2">
                     Phone Number
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                  <View className="flex-row items-center bg-slate-50 border border-gray-200 rounded-xl px-4 py-3">
                     <Ionicons name="call-outline" size={20} color="#6b7280" />
-                    <TextInput
-                      className="flex-1 ml-3 text-gray-900 text-base"
+                    <TextInput  
+                      className="flex-1 ml-3 text-slate-900 text-base"
                       value={formData.phone}
                       onChangeText={(text) => handleChange("phone", text)}
                       placeholder="Enter your phone number"
@@ -140,7 +140,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                       color="#6b7280"
                     />
                     <TextInput
-                      className="flex-1 ml-3 text-gray-900 text-base"
+                      className="flex-1 ml-3 text-slate-900 text-base"
                       value={formData.location}
                       onChangeText={(text) => handleChange("location", text)}
                       placeholder="Enter your location"
@@ -153,7 +153,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <View className="pt-4 border-t border-gray-100 mt-auto">
               <TouchableOpacity
                 onPress={handleSave}
-                className="w-full py-4 rounded-xl items-center bg-primary-500 shadow-lg shadow-primary-500/30"
+                className="w-full py-4 rounded-xl items-center bg-slate-500 shadow-lg shadow-slate-500/30"
               >
                 <Text className="text-white font-bold text-lg">
                   Save Changes
