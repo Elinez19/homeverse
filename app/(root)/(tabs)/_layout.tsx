@@ -11,7 +11,7 @@ export default function TabLayout() {
           backgroundColor: "#ffffff",
           borderTopColor: "#e2e8f0",
           borderTopWidth: 1,
-          height: Platform.OS === "ios" ? 84 : 64,
+          height: Platform.OS === "ios" ? 94 : 78,
           paddingTop: 10,
           paddingBottom: Platform.OS === "ios" ? 24 : 10,
         },
@@ -78,10 +78,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="Profile"
         options={{
-          title: "Profile",
+          title: "Me",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "settings" : "settings-outline"}
+              name={focused ? "person" : "person-outline"}
               size={22}
               color={color}
             />
