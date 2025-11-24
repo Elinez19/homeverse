@@ -21,6 +21,7 @@ interface EditProfileModalProps {
     email: string;
     phone: string;
     location: string;
+    avatar: string;
   };
 }
 
@@ -64,7 +65,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <BlurView intensity={10} className="absolute inset-0" />
           </TouchableOpacity>
 
-          <View className="bg-white rounded-t-3xl p-6 h-[70%] shadow-2xl">
+          <View className="bg-white rounded-t-3xl p-6 h-[80%] shadow-2xl">
             <View className="w-12 h-1 bg-gray-300 rounded-full self-center mb-6" />
 
             <View className="flex-row items-center justify-between mb-6">
@@ -73,9 +74,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               </Text>
               <TouchableOpacity
                 onPress={onClose}
-                className="w-8 h-8 bg-slate-400 rounded-full justify-center items-center"
+                className="w-8 h-8 bg-slate-100 rounded-full justify-center items-center"
               >
-                <Ionicons name="close" size={20} color="#374151" />
+                <Ionicons name="close" size={20} color="#334155" />
               </TouchableOpacity>
             </View>
 
@@ -83,12 +84,28 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               <View className="space-y-4 gap-4">
                 <View>
                   <Text className="text-sm font-medium text-slate-700 mb-2">
+                    Profile Image URL
+                  </Text>
+                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                    <Ionicons name="image-outline" size={20} color="#64748b" />
+                    <TextInput
+                      className="flex-1 ml-3 text-slate-900 text-base"
+                      value={formData.avatar}
+                      onChangeText={(text) => handleChange("avatar", text)}
+                      placeholder="Enter image URL"
+                      autoCapitalize="none"
+                    />
+                  </View>
+                </View>
+
+                <View>
+                  <Text className="text-sm font-medium text-slate-700 mb-2">
                     Full Name
                   </Text>
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
-                    <Ionicons name="person-outline" size={20} color="#6b7280" />
+                    <Ionicons name="person-outline" size={20} color="#64748b" />
                     <TextInput
-                      className="flex-1 ml-3 text-gray-900 text-base"
+                      className="flex-1 ml-3 text-slate-900 text-base"
                       value={formData.name}
                       onChangeText={(text) => handleChange("name", text)}
                       placeholder="Enter your full name"
@@ -101,9 +118,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     Email Address
                   </Text>
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
-                    <Ionicons name="mail-outline" size={20} color="#6b7280" />
+                    <Ionicons name="mail-outline" size={20} color="#64748b" />
                     <TextInput
-                      className="flex-1 ml-3 text-gray-900 text-base"
+                      className="flex-1 ml-3 text-slate-900 text-base"
                       value={formData.email}
                       onChangeText={(text) => handleChange("email", text)}
                       placeholder="Enter your email"
@@ -118,7 +135,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     Phone Number
                   </Text>
                   <View className="flex-row items-center bg-slate-50 border border-gray-200 rounded-xl px-4 py-3">
-                    <Ionicons name="call-outline" size={20} color="#6b7280" />
+                    <Ionicons name="call-outline" size={20} color="#64748b" />
                     <TextInput  
                       className="flex-1 ml-3 text-slate-900 text-base"
                       value={formData.phone}
@@ -137,7 +154,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     <Ionicons
                       name="location-outline"
                       size={20}
-                      color="#6b7280"
+                      color="#64748b"
                     />
                     <TextInput
                       className="flex-1 ml-3 text-slate-900 text-base"
@@ -153,7 +170,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <View className="pt-4 border-t border-gray-100 mt-auto">
               <TouchableOpacity
                 onPress={handleSave}
-                className="w-full py-4 rounded-xl items-center bg-slate-500 shadow-lg shadow-slate-500/30"
+                className="w-full py-4 rounded-xl items-center bg-slate-900 shadow-lg shadow-slate-900/20"
               >
                 <Text className="text-white font-bold text-lg">
                   Save Changes

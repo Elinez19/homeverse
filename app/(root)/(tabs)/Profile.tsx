@@ -1,5 +1,9 @@
+import AddressModal from "@/components/modals/AddressModal";
 import ConfirmationModal from "@/components/modals/ConfirmationModal";
 import EditProfileModal from "@/components/modals/EditProfileModal";
+import LanguageModal from "@/components/modals/LanguageModal";
+import NotificationModal from "@/components/modals/NotificationModal";
+import PaymentMethodsModal from "@/components/modals/PaymentMethodsModal";
 import SuccessModal from "@/components/modals/SuccessModal";
 import {
     userProfile as defaultUserProfile,
@@ -26,18 +30,44 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProfileScreen() {
   const router = useRouter();
   const [userProfile, setUserProfile] = useState(defaultUserProfile);
+  const [selectedLanguage, setSelectedLanguage] = useState("English (US)");
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // Modal States
   const [showEditProfile, setShowEditProfile] = useState(false);
+  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [showAddresses, setShowAddresses] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showLanguage, setShowLanguage] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleMenuItemPress = (item: any) => {
-    if (item.label === "Personal Information") {
-      setShowEditProfile(true);
-    } else if (item.route) {
-      router.push(item.route);
+    switch (item.label) {
+      case "Personal Information":
+        setShowEditProfile(true);
+        break;
+      case "Payment Methods":
+        setShowPaymentMethods(true);
+        break;
+      case "Addresses":
+        setShowAddresses(true);
+        break;
+      case "Notifications":
+        setShowNotifications(true);
+        break;
+      case "Language":
+        setShowLanguage(true);
+        break;
+      case "Dark Mode":
+        // Handled by Switch
+        break;
+      default:
+        if (item.route) {
+          router.push(item.route);
+        }
+        break;
     }
   };
 
@@ -177,18 +207,23 @@ export default function ProfileScreen() {
                         </View>
                         
                         <View className="flex-row items-center">
-                          {item.value && (
+                          {item.label === "Language" ? (
+                            <Text className="text-slate-400 text-sm mr-2">
+                              {selectedLanguage}
+                            </Text>
+                          ) : item.value ? (
                             <Text className="text-slate-400 text-sm mr-2">
                               {item.value}
                             </Text>
-                          )}
+                          ) : null}
+                          
                           {item.isSwitch ? (
                             <Switch
                               trackColor={{ false: "#e2e8f0", true: "#0f172a" }}
                               thumbColor={"#ffffff"}
                               ios_backgroundColor="#e2e8f0"
-                              value={false}
-                              onValueChange={() => {}}
+                              value={isDarkMode}
+                              onValueChange={setIsDarkMode}
                             />
                           ) : (
                             <Ionicons
@@ -236,7 +271,30 @@ export default function ProfileScreen() {
           email: userProfile.email,
           phone: userProfile.phone,
           location: userProfile.location,
+          avatar: userProfile.avatar,
         }}
+      />
+
+      <PaymentMethodsModal
+        isVisible={showPaymentMethods}
+        onClose={() => setShowPaymentMethods(false)}
+      />
+
+      <AddressModal
+        isVisible={showAddresses}
+        onClose={() => setShowAddresses(false)}
+      />
+
+      <NotificationModal
+        isVisible={showNotifications}
+        onClose={() => setShowNotifications(false)}
+      />
+
+      <LanguageModal
+        isVisible={showLanguage}
+        onClose={() => setShowLanguage(false)}
+        selectedLanguage={selectedLanguage}
+        onSelectLanguage={setSelectedLanguage}
       />
 
       <ConfirmationModal
