@@ -24,14 +24,50 @@ import { services } from "@/constants/services";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Alert, Image, Modal, Pressable, ScrollView, StatusBar, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, Animated, Image, Modal, Pressable, ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const router = useRouter();
+  
+  // Animation Values
+  const slideAnim = useRef(new Animated.Value(-320)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (sidebarVisible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [sidebarVisible]);
+
+  const closeSidebar = () => {
+    Animated.parallel([
+      Animated.timing(slideAnim, {
+        toValue: -320,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start(() => setSidebarVisible(false));
+  };
 
   // Filter services based on search query
   const filteredServices = services.filter((service) => {
@@ -321,26 +357,33 @@ export default function HomeScreen() {
       {/* Sidebar Modal */}
       <Modal
         visible={sidebarVisible}
-        animationType="fade"
         transparent
-        onRequestClose={() => setSidebarVisible(false)}
+        onRequestClose={closeSidebar}
       >
         <View className="flex-1 flex-row">
           {/* Overlay */}
-          <Pressable
-            className="flex-1 bg-black/50"
-            onPress={() => setSidebarVisible(false)}
-          />
+          <Animated.View 
+            style={{ opacity: fadeAnim }}
+            className="absolute inset-0 bg-black/50"
+          >
+            <Pressable
+              className="flex-1"
+              onPress={closeSidebar}
+            />
+          </Animated.View>
           
           {/* Sidebar Content */}
-          <View className="w-80 bg-white h-full">
+          <Animated.View 
+            style={{ transform: [{ translateX: slideAnim }] }}
+            className="w-80 bg-white h-full shadow-2xl"
+          >
             <SafeAreaView className="flex-1">
               {/* Header */}
               <View className="px-6 py-6 border-b border-slate-100">
                 <View className="flex-row items-center justify-between mb-4">
                   <Text className="text-2xl font-bold text-slate-900">Menu</Text>
                   <Pressable
-                    onPress={() => setSidebarVisible(false)}
+                    onPress={closeSidebar}
                     className="w-10 h-10 rounded-full bg-slate-100 items-center justify-center"
                   >
                     <Ionicons name="close" size={24} color="#1e293b" />
@@ -366,7 +409,7 @@ export default function HomeScreen() {
                   <Pressable
                     key={index}
                     onPress={() => {
-                      setSidebarVisible(false);
+                      closeSidebar();
                       if (item.route !== "/") {
                         router.push(item.route as any);
                       }
@@ -388,7 +431,7 @@ export default function HomeScreen() {
                 {/* Settings & Logout */}
                 <Pressable
                   onPress={() => {
-                    setSidebarVisible(false);
+                    closeSidebar();
                     Alert.alert("Settings", "Settings screen coming soon");
                   }}
                   className="flex-row items-center px-4 py-4 rounded-2xl mb-2 active:bg-slate-50"
@@ -403,7 +446,7 @@ export default function HomeScreen() {
 
                 <Pressable
                   onPress={() => {
-                    setSidebarVisible(false);
+                    closeSidebar();
                     Alert.alert("Logout", "Are you sure you want to logout?", [
                       { text: "Cancel", style: "cancel" },
                       { text: "Logout", style: "destructive" }
@@ -427,7 +470,7 @@ export default function HomeScreen() {
                 </Text>
               </View>
             </SafeAreaView>
-          </View>
+          </Animated.View>
         </View>
       </Modal>
     </View>

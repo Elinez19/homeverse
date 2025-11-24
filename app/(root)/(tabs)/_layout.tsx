@@ -11,9 +11,9 @@ export default function TabLayout() {
           backgroundColor: "#ffffff",
           borderTopColor: "#e2e8f0",
           borderTopWidth: 1,
-          height: Platform.OS === "ios" ? 94 : 78,
+          height: Platform.OS === "ios" ? 94 : 88,
           paddingTop: 10,
-          paddingBottom: Platform.OS === "ios" ? 24 : 10,
+          paddingBottom: Platform.OS === "ios" ? 24 : 15,
         },
         tabBarLabelStyle: {
           fontSize: 12,
