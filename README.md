@@ -1,51 +1,100 @@
-# Welcome to your Expo app 👋
+# MindFit - Your Mental Wellness Journey 🧠💚
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**MindFit** is a comprehensive mental health and wellness mobile application built with React Native and Expo. Connect with licensed therapists, access guided meditation, track your mental wellness journey, and find the support you need—all in one beautiful, intuitive app.
 
-## Get started
+## Features
 
-1. Install dependencies
+✨ **Professional Therapy** - Connect with licensed therapists and psychiatrists  
+🧘 **Mindfulness & Meditation** - Guided sessions for stress relief and mental clarity  
+💑 **Couples Counseling** - Strengthen relationships with expert guidance  
+📊 **Wellness Tracking** - Monitor your mental health journey and progress  
+🔒 **100% Confidential** - HIPAA-compliant security for your privacy  
+💬 **24/7 Crisis Support** - Immediate help when you need it most  
+📚 **Mental Health Resources** - Articles and tips from experts  
+🎯 **Personalized Care** - Tailored treatment plans for your unique needs
+
+## Tech Stack
+
+- **Framework**: React Native with Expo
+- **Routing**: Expo Router (file-based routing)
+- **Styling**: NativeWind (TailwindCSS for React Native)
+- **Language**: TypeScript
+- **State Management**: React hooks
+- **Animations**: React Native Reanimated
+
+## Get Started
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Start the development server**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Run the app**
+   - Press `a` for Android emulator
+   - Press `i` for iOS simulator
+   - Scan QR code with Expo Go app on your phone
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+mindfit-app/
+├── app/              # File-based routing screens
+├── components/       # Reusable UI components
+├── constants/        # App configuration and data
+├── types/           # TypeScript type definitions
+├── validation/      # Form validation schemas
+└── assets/          # Images, fonts, and other static files
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Key Screens
 
-## Learn more
+- **Onboarding**: Beautiful carousel showcasing mental wellness services
+- **Home**: Discover therapists, services, and wellness content
+- **Explore**: Browse therapy categories and trending services
+- **Chat**: Communicate with your therapist
+- **Profile**: Manage your wellness journey and settings
 
-To learn more about developing your project with Expo, look at the following resources:
+## Mental Wellness Services
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Individual Therapy
+- Cognitive Behavioral Therapy (CBT)
+- Meditation & Mindfulness
+- Anxiety Management
+- Depression Support
+- Couples Counseling
+- Life Coaching
+- Stress Management
+- Group Therapy
+- Online Sessions
 
-## Join the community
+## Learn More
 
-Join our community of developers creating universal apps.
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Documentation](https://reactnative.dev/)
+- [Expo Router](https://docs.expo.dev/router/introduction/)
+- [NativeWind](https://www.nativewind.dev/)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-"# homeverse" 
+## Contributing
+
+We welcome contributions! Please feel free to submit issues and pull requests.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support, please contact support@mindfit.app or visit our Help Center.
+
+---
+
+**Note**: This app is for educational and informational purposes. Always consult with qualified mental health professionals for serious mental health concerns.
+ 
+"# mindfit-app" 
